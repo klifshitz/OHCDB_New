@@ -15,11 +15,761 @@ set search_path to :schema;
 -- Create views section -------------------------------------------------
 
 CREATE VIEW "public"."cxo_enhancement" AS
-  
+   SELECT a."Occ Series",
+      a."EMPLOYEE_WORK_EMAIL",
+      a."POSITION_OFFICIAL_TITLE",
+      a."LEO_IND",
+      a."SEX_CODE",
+      a.filename,
+      a.cxo_pp1,
+      a."DIR",
+      a."OFFICE",
+      a."BUD",
+      a."ORG",
+      a."ORG TEXT",
+      a."POSN NR",
+      a."FILLED/VACANT",
+      a."INCMB/VICE NAME",
+      a."SERIES",
+      a."STEP",
+      a."TITLE",
+      a."ENHANCE/SUPP YR",
+      a."FUND IND",
+      a."LAW ENF",
+      a."EOD DT",
+      a."REL POS IND",
+      a."REL POS NBR",
+      a."NTE DT",
+      a."SF52",
+      a."Selectee Name",
+      a."FPL",
+      a."DUTY CITY",
+      a."DUTY STATE",
+      a."TITLE GROUP",
+      a."DAYS VACANT",
+      a."DUTY LOC",
+      a."CODE",
+      a."SUFFIX",
+      a."OFF/SUPRT",
+      a."RETIRE",
+      a."INCMB PP",
+      a."INCMB BASE",
+      a."INCMB ADJ",
+      a."DHS DT",
+      a."FED START DT",
+      a."INCMB GRADE DT",
+      a."NOAC1",
+      a."NOAC2",
+      a."INCMB CAT CD",
+      a."VAC DT",
+      a."DAYS OCCUP",
+      a."MAX NTE DT",
+      a."INCMB NTE DT",
+      a."AGENCY",
+      a."TOD HRS",
+      a."HIRING ACTION",
+      a."HIRING STATUS",
+      a."CAS/PPA",
+      a."CAS PPA DESCRIPTION",
+      a."HQ/FIELD",
+      a."PML on board",
+      a."OE-Status",
+      a."CXO_ENHANCE/SUPP YR",
+      a.cxo_fy,
+      a.ingested_at,
+          CASE
+              WHEN ((a."SERIES" = '0018'::text) AND (a."TITLE" ~~ '%SAFETY & OCCUPTL HLTH MGR%'::text)) THEN 'OTHRSPT'::text
+              WHEN ((a."SERIES" = '0072'::text) AND (a."TITLE" ~~ '%FNGRPRNT SPECLST%'::text)) THEN 'LESUPT'::text
+              WHEN ((a."SERIES" = '0101'::text) AND (a."TITLE" ~~ '%EMP ASSTNC PROG MGR%'::text)) THEN 'MSNSUPT'::text
+              WHEN ((a."SERIES" = '0132'::text) AND (a."TITLE" ~~ '%DEP ASST DIR INTEL%'::text)) THEN 'IRS'::text
+              WHEN ((a."SERIES" = '0180'::text) AND (a."TITLE" ~~ '%CLNCL PSYCH%'::text)) THEN 'MED'::text
+              WHEN ((a."SERIES" = '0188'::text) AND (a."TITLE" ~~ '%RECR SPECLST%'::text)) THEN 'LEOTHR'::text
+              WHEN ((a."SERIES" = '0305'::text) AND (a."TITLE" ~~ '%MAIL & FILE CLK OA%'::text)) THEN 'LGLSUPT'::text
+              WHEN ((a."SERIES" = '0905'::text) AND (a."TITLE" ~~ '%ATTY ADVSR%'::text)) THEN 'ATTY'::text
+              WHEN ((a."SERIES" = '1102'::text) AND (a."TITLE" ~~ '%ASST DIR OFF OF ACQ%'::text)) THEN 'CONT'::text
+              WHEN ((a."SERIES" = '1801'::text) AND (a."TITLE" ~~ '%ASST DIR ENFCMNT & REMOVAL OPS%'::text)) THEN 'DO'::text
+              WHEN ((a."SERIES" = '1801'::text) AND (a."TITLE" ~~ '%INSPS & COMPLNC SPECLST%'::text)) THEN 'INSPS & COMP'::text
+              WHEN ((a."SERIES" = '1811'::text) AND (a."TITLE" ~~ '%ASSOC DIR OPR%'::text)) THEN 'CI'::text
+              WHEN ((a."SERIES" = '2210'::text) AND (a."TITLE" ~~ '%CHIEF INFORMATION OFFICER%'::text)) THEN 'ITSPEC'::text
+              WHEN ((a."SERIES" = '4742'::text) AND (a."TITLE" ~~ '%UTIL SYS RPRER OPERTR%'::text)) THEN 'WGSUPT'::text
+              ELSE a."TITLE GROUP"
+          END AS tableau_title_group
+     FROM public.cxo_enhancement_archive a;
 ;
 
 CREATE VIEW "public"."cxo_eoy_604" AS
-  
+  SELECT a.dir,
+      a.office,
+      a.bud,
+      a.org,
+      a."org text",
+      a."posn nr",
+      a.filled_vacant,
+      a."incmb_vice name",
+      a.ft,
+      a.prog,
+      a.prge,
+      a.proj,
+      a."fund prog ",
+      a."cat cd",
+      a.ftep,
+      a.pp,
+      a.series,
+      a."incb grd",
+      a.step,
+      a.prfx,
+      a.title,
+      a.mrn,
+      a.priority,
+      a."enhance_supp yr",
+      a.fund_ind,
+      a.law_enf,
+      a.sens_ind,
+      a.bus_cd,
+      a.grp,
+      a.hrs,
+      a.dtl_org_code,
+      a.eod_dt,
+      a.rel_pos_ind,
+      a.rel_pos_nbr,
+      a.nte_dt,
+      a.sf52,
+      a.selectee_name,
+      a.entry,
+      a.fpl,
+      a."DUTY CITY",
+      a."DUTY STATE",
+      a.nfc_stored_acct,
+      a."tops_payroll_acct ",
+      a.tops_ipaguse,
+      a.create_id,
+      a.create_dt,
+      a.upd_id,
+      a.upd_dt,
+      a.scd_dt,
+      a.title_group,
+      a.days_vacant,
+      a.mci,
+      a.proj_type,
+      a.bws,
+      a.conus,
+      a.flsa,
+      a.hco,
+      a.supvy,
+      a.duty_loc,
+      a.code,
+      a.suffix,
+      a.off_suprt,
+      a.working_title,
+      a.classf,
+      a.classf_dt,
+      a.lang,
+      a.retire,
+      a.incmb_pp,
+      a.incmb_base,
+      a.incmb_adj,
+      a.dhs_dt,
+      a.fed_start_dt,
+      a.incmb_grade_dt,
+      a.noac1,
+      a.noac2,
+      a.incmb_cat_cd,
+      a.vac_rsn,
+      a.vac_dt,
+      a.days_occup,
+      a.max_nte_dt,
+      a.incmb_nte_dt,
+      a.agency,
+      a.son,
+      a.tod_hrs,
+      a.furlough_status,
+      a.hiring_action,
+      a.hiring_status,
+      a.cas_ppa,
+      a.cas_ppa_description,
+      a.hq_field,
+      a.pml_on_board,
+      a.fiscal_year,
+      a.fy_pp,
+      a.cy_pp,
+      a."Org Structure",
+      a."POI",
+      a."Pay Plan",
+      a."Occ Series",
+      a."Grade/Step",
+      a."Employee Name",
+      a."Type of Appointment",
+      a."Duty Station",
+      a."Base Contract Salary",
+      a."Age",
+      a."EMPLOYEE_WORK_EMAIL",
+      a."ANNUITANT_INDICATOR",
+      a."DATE_AGENCY_EOD",
+      a."DATE_ENTERED_POI",
+      a."DATE_OF_BIRTH",
+      a."DATE_SCD_WGI",
+      a."FAIR_LABOR_STANDARDS_CODE",
+      a."GRADE",
+      a."MASTER_RECORD_NUMBER",
+      a."POSITION_NUMBER",
+      a."POSITION_OFFICIAL_TITLE",
+      a."POSITION_SUPERVISORY_CODE",
+      a."SPEC_EMPLOYMENT_PGMS_CODE",
+      a."SPECIAL_EMPLOYEE_CODE",
+      a."TENURE_GROUP",
+      a."WORK_SCHEDULE",
+      a."DATE_ENTERED_PRES_GRADE",
+      a."DATE_NON_PAY_NTE",
+      a."PMSO_IP_AGY_USE",
+      a."POSITION_TARGET_GRADE",
+      a."DATE_6C_RETIREMENT",
+      a."DATE_CBPO_RET_SCD",
+      a."DATE_SCD_CSR",
+      a."DATE_SCD_LEAVE",
+      a."RT_PLAN_CODE",
+      a."DATE_CAREER_PERM_TEN_START",
+      a."DATE_PROB_PERIOD_START",
+      a."LEO_IND",
+      a."UNIFORM_SERVICE_STATUS",
+      a."BARGAINING_UNIT_STATUS_CD",
+      a."DATE_DETL_EXPIR",
+      a."DATE_PROMOTION_NTE",
+      a."SCHEDULED_SALARY",
+      a."SEX_CODE",
+      a."PREVIOUS_AGENCY_CODE",
+      a."POSITION_STATUS_CODE",
+      a.filename,
+      a.ingested_at,
+          CASE
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP DIR ICE'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF OF STAFF'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP CH OF STAFF'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPECIAL ADVISOR (PROTOCOL & SPEC EVTS)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG MGR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MSN SUPT SPECL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASSISTANT EXEC SEC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'WRI EDIT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CONGRSNL LIASN SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CONGRSNL LIASN OFCR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPEC ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PUBLIC AFF SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PUBLIC AFF SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MISSION SUPPORT SPECIALIST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY MGMT & PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'VIS INF SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'AUDIO VIS PRODN SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY AUDIO VIS PRODN SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR DIVERSITY & CIVIL RIGHTS'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EQ EMPLMT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CLK'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EQ EMPLMT MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY POLICY ADVISOR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PLCY ADVSR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY EQ EMPLMT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY EQ OPP SPEC'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'POLICY ADVSR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CRIM INVSTGR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIM INVSTGR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EQUIP SPECLST ORDNC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPP TECHNCN OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY GEN ENGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ENGRG TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW ENFORCEMENT PROG. MGR.'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPRTN OFFCR (COURSE DEVLP/INSTR)'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRAINING SPEC (FIREARMS)'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FIREARMS PGRM SPCLST'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRNG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIMINAL INVESTIGATOR (INSTRUCTOR)'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DETNTN & DEPORTATN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY DETNTN & DEPORTATN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FACIL OPERS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY COMMUNITY RELATIONS OFFCR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'COMMUNITY RELATIONS OFFCR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SENIOR ADVSR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP CHIEF OF STAFF'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STAFF ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BUDG ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'REGULATORY AND POLICY ANALYST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ECONMST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PLCY ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY REGULATORY ANALYST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PLCY ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ECONOMIST (CHIEF)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CH OF STAFF'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY MSN SUPT SPECL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INSTRUCTNL SYS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSTRUCTNL SYS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG MGR (LRNG MGMT)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRNG INSTRU'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSTRUCTIONAL SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MISSION SUPRT ASST OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY TRNG INSTRU'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY CHIEF HUMAN CAPITAL OFFICER'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF HUMAN CAPITAL OFFICER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (COMPEN)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SENIOR HUMAN RESOURCES ADVISOR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY STRATEGIC ADVSR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES ASST OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (EMPL BE'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (RECRUIT&PLAC)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (RECRUIT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (CLASSIF'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (CLASSIFN)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRE-EMPLOYMENT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRE EMPLOYMENT ASST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STUD TR (HUMAN RESOURCES)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HR SPECLST (EMPL & LABOR REL)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (LABOR REL)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (LABOR R'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD HUMAN RESOURCES SPECLST (EMPL REL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (EMPL RE'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HR SPECLST (CLASSIFN RECRUIT & PLAC)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PHYSICIAN'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OCCUPTL HLTH NURSE'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DRUG PROG COORD'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (EMPL BENES)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BEHAVIORAL HLTH SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EMP ASSTNC PROG MGR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PSYCH'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHAPLAIN DIR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PERS RES PSYCH'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PERS RESEARCH PSYCH'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT INF ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (INFO SY'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ADMV OFFCR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ADMV OFFCR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CIVILIAN PAY TECHNCN OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (COMPEN)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR INF GOVERNANCE'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'RECS AND INFO MGMT SPEC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OPER RES ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRIVACY OFFICER'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PRO ANAL (PRIVACY COMPLIANCE)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SR INFO GOV ANALYST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'GOVNMNT INFO SPEC (PRIVACY COMPLIANCE)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANAL (BUDG & COR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY RECORDS & INFORMATION MGMT SPECI'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PARALEGAL SPECLST (FOIA/PA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PARALEGAL SPECLST'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FOIA/PA ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PARALEGAL SPECLST'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PARALEGAL SPECLST (FOIA/PA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PARALEGAL SPECLST (FOIA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FREEDOM OF INFORMATION ACT DIRECTOR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY DIRECTOR FOIA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'GEN ENGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OPERATIONS RESEARCH ANALYST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP PRINC LEG ADVSR'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP PRIN LEGAL ADVSR MANAGEMENT'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRINCIPAL LEGAL ADVISOR FOR ICE'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY GEN ATTY'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'GEN ATTY'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ATTY ADVSR'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASSOC DEP PRINC LEG ADVSR'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PARALEGAL SPECIALIST (OPLA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP PRINC LEGAL ADVSR HEADQUARTES'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HISTRN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LIBRN LAW'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEG ASST OA'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY GEN ATTY (ETHICS)'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'GEN ATTY (ETHCIS)'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MAIL & FILE CLK OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD LEG ASST'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF COUNSEL'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW CLK'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY LEG ASST OA'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRIAL ATTY'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STUD TR (LEG ASST) OA'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ENFORCEMENT PROGRAMS MGR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR ENFCMNT & REMOVAL OPS'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP ASST DIR FLD OPERS'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTEL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EMERGENCY MANAGEMENT SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY EMERGENCY MANAGEMENT SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STATCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY ASSISTANT DIRECTOR ERO'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANAL (DET SVCS MGR)'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPRTN OFFCR (COMP STDS OFFCR)'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR SECURE COMMUNITIES'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIM TARGETING SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CRIM TARGETING SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPRTN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY LAW ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR ICE SRVCS HLTH CORPS'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HEALTH SYSTEMS SPECIALIST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PHYSCN (PSYCHTRC)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (CLINICAL DIRECTOR)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (PSYCHIATRY)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MEDCL OFFCR'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSCN (GEN PRACTICE)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (REG CLINICAL DIR)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (CONSULTANT)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (DAD/MED DIRECTOR)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CLNCL NURSE'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HEALTH SYSTEM SPECIALIST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRACTICAL NURSE'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'NURSE PRACTITIONER'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MEDCL REC TECHNCN'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DNTL HYGIENIST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY WRI EDIT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECY OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ADV PRAC NURSE (NURSE PRACTITIONER)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIAGNSTC RADIOLOGIC TECHNCN'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DNTL ASST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSCN ASST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CLNCL PSYCH'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SOC WRKR'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ADVANCE NURSE PRAC'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MATHCL STATCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ENFORCEMENT & REMOVAL ASSISTANT OA'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ENFCMNT & RMVL ASST OA'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STUD TR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRAFF MGMT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRNG TECHNCN OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPP TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPP TECHNCN (INVENT)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BOND CNTL SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY BOND SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW ENFCMNT TECHNCN'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ADMV ASST OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'RECR SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'IMMGRTN ENF AGT'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FOOD SRVS SPEC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'AUTMTV MECH'::text) THEN 'WGSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW ENFCMNT COMMUN ASST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY MSN SUPT SPECL (COTR)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MTRLS HNDLR'::text) THEN 'WGSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OFF AUTOMATION ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVENT MGMT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ELCTRON TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OFF AUTOMATION CLK'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT PROG TECHNCN OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR OFF OF ACQ'::text) THEN 'CONT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROCUR ANAL'::text) THEN 'CONT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEBARMENT ANAL (SENIOR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEBARMENT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CONTR SPECLST'::text) THEN 'CONT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CONTR SPECLST'::text) THEN 'CONT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY DEBARMENT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EXEC ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROCUR & BUS RESOURCES MGMT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PROCUR & BUS RESOURCES MGT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SR PROCUR & BUS RESOURCES MGMT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BUS OPERS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP ASSOC DIRECTOR OPR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASSOC DIR OPR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANAL (SR PROG ADVSR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR INVST OPR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OVERSIGHT ADM (PREA)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVESTIGATIVE ANALYST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OPERTNL ANALS SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSIDER THREAT OPERTNL ANAL'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTELL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OPERATIONAL ANALYSIS SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTEL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TECHNCL ENFCMNT OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY TECHNCL ENFCMNT OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTELL & INFO SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INSIDER THREAT SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANALYST (PROG ADVSR)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVESTIGATIVE PROGRAM OFFICER'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIV DIRINSPR & DETENTION OVERSIGHT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSPS & COMPLNC MGR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INSPS & COMPLNC SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSPS & COMPLC SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SUPV ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSPS & COMPLNC SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SECUR SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PERS SECUR SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PERS SECUR SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECUR SPECLST (POLYGRAPH EXAMNR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SECUR SPECLST (POLYGRAPH EXMNR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYS SECUR SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECUR SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECUR INSPR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF INFORMATION OFFICER'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP CHIEF INFORMATION OFFICER'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY IT SPEC (ENTACH/INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'COMMUNICATIONS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (PLCYPLN)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (SYSANALYSIS)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'IT PROJ MGR'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (SYSADMIN)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (APPSW/INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ITSPEC (INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (DATAMGT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (SYSANALYSIS)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (PLCYPLN)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (CUSTSPT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (NETWORK)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (CUSTSPT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ITSPEC (NETWORK)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ITSPEC (CUSTSPT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (NETWORK)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY BUS OPERS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY CHIEF FINANCIAL OFFICER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF FINANCIAL OFCR (ICE)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPV ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD MGMT & PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD FNANCL PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FNANCL PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FIN PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR BUDGET & PROGRAM PERFORMANCE'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY BUDG ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROGRAM MANAGEMENT SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SAFETY & OCCUPTL HLTH SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INDL HYGIENIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SAFETY & OCCUPTL HLTH MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'NURSE CONSULTANT'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MAIL & FILE ASST (OA)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPACE MGMT SUPRT SPECL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ARCH'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEASE ADMIN PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPACE MGMT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG MGR (FACILITIES)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BLDG MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FACIL PROG MGR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'UTIL SYS RPRER OPERTR'::text) THEN 'WGSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR OF FNANCL MGMT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNANCL PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SYS ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MISSION SUPRT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SYS ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNANCL SYS MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FINANCIAL SYSTEMS MANAGER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FINANCIL MGMT SYSTEMS ANAL (TEAM LEAD)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNANCL BUS INTEG MANAGER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ACCTG TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY MGMT INF ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNANCL ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ACCTG TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FNANCL MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ACCNT (TAX)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY DIRECTOR INVESTIGATIONS'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR OFFICE OF INVESTIGATIONS'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'AUDR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP ASST DIR INVEST'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTELL OPERS SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIM RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PAROLE PROG SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASSET FORFEIT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SOC SCI PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SOC SCI PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTELL OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTELL OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FORENSIC DOCMT EXAMN'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FORENSIC DOCMT EXAMNR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FNGRPRNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHOTOGR (FORENSIC)'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SR. DIG MULTIMEDIA FORENSIC ANALYST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEIZED PROPERTY SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNGRPRNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FORENSIC DOCMT EXAMNR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYS SCNTST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EMER PREPAREDNESS SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEVP APPEALS ADJUDR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'COUNTERTERRORISM INTELL SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEVP FLD REPR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SEVP FLD REPR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEVP ADJUDR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SEVP ADJUDR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EXECUTIVE DIRECTOR LEIS'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CYBER OPERS OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'COMPR FORENSIC ANAL'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIM INVSTGR (NATL PROG MGR)'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TACTICAL COMMUN OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TELECOMMUN SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SOC SCI PROG SPEC (VICTIM WIT ASST)'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVESTIGATIVE ASST OA'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPEC AGT IN CHG'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTELL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEIZED PROP SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVESTIGATIVE CLK OA'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FILE ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TECHNCL OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG ASST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTELL ASST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ICE TACTICAL OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ICE TACTICAL OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG SUPRT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INF RECPTNST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ENFCMNT OPERS SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECTOR ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD SECTOR ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TECHNICAL EQUIPMENT SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY TACTICAL COMMUN OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR FEDL EXPORT ENFCMNT COORDNTN CENTR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PROG SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INVESTIGATIVE ANALYST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FOIA/PRIVACY ACT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR INTELL'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP ASST DIR INTEL'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTELL OPERS SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP DIR, INTERNATIONAL AFFAIRS'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR INTERPOL WASH'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CRIM INVSTGR (OPERS CH)'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPRTN LIASN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'IMMIGRATN OFFCR'::text) THEN 'LEOTHR'::text
+              ELSE a.title_group
+          END AS tableau_title_group,
+          CASE
+              WHEN ((a."DUTY CITY" = 'LORDS VALLEY'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'ATLANTA'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHICAGO'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'PASCO'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'STOCKTON'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'HOUMA'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'BLUE ASH'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'NEW YORK -QUEENS'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'GREAT FALLS'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SAN ANGELO'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'KAILUA KONA'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'IDAHO FALLS'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SALISBURY'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHARLESTON NAVAL CX'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SALT LAKE CITY'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'FARMVILLE'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'LOUISVILLE'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'BOSTON'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'FT MYERS'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHEYENNE'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'GRAND ISLAND'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'ROSWELL'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'HOULTON'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'LITTLE ROCK'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'WINSTON SALEM'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'ATLANTIC CITY'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'KANSAS CITY'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'ANCHORAGE'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'FARGO'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'MESA'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'WASHINGTON'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SAINT ALBANS'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'DURANGO'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHATTANOOGA'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'DETROIT'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'GADSDEN'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'OKMULGEE'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'DULUTH'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'HARTFORD'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'MEDFORD'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'GULFPORT'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'PORTSMOUTH'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'MADISON'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'FORT WAYNE'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SIOUX FALLS'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'RENO'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHARLESTON'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'WICHITA'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'DOVER'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'WARWICK'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SIOUX CITY'::text) AND (a.conus = 'Y'::text)) THEN a."DUTY STATE"
+              ELSE a."DUTY STATE"
+          END AS cxo_state,
+          CASE
+              WHEN ((a."DUTY CITY" = 'FRANKFURT'::text) AND (a.conus = 'N'::text)) THEN 'GERMANY'::text
+              WHEN ((a."DUTY CITY" = 'MANAMA'::text) AND (a.conus = 'N'::text)) THEN 'BAHRAIN'::text
+              WHEN ((a."DUTY CITY" = 'KINGSTON'::text) AND (a.conus = 'N'::text)) THEN 'JAMAICA'::text
+              WHEN ((a."DUTY CITY" = 'AGUADILLA'::text) AND (a.conus = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'SAN JUAN'::text) AND (a.conus = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'CASABLANCA'::text) AND (a.conus = 'N'::text)) THEN 'MOROCCO'::text
+              WHEN ((a."DUTY CITY" = 'STUTTGART'::text) AND (a.conus = 'N'::text)) THEN 'GERMANY'::text
+              WHEN ((a."DUTY CITY" = 'LONDON'::text) AND (a.conus = 'N'::text)) THEN 'UNITED KINGDOM'::text
+              WHEN ((a."DUTY CITY" = 'JERUSALEM'::text) AND (a.conus = 'N'::text)) THEN 'ISRAEL'::text
+              WHEN ((a."DUTY CITY" = 'BRASILIA'::text) AND (a.conus = 'N'::text)) THEN 'BRAZIL'::text
+              WHEN ((a."DUTY CITY" = 'NEW DELHI'::text) AND (a.conus = 'N'::text)) THEN 'INDIA'::text
+              WHEN ((a."DUTY CITY" = 'WARSAW'::text) AND (a.conus = 'N'::text)) THEN 'POLAND'::text
+              WHEN ((a."DUTY CITY" = 'GUANGZHOU'::text) AND (a.conus = 'N'::text)) THEN 'CHINA'::text
+              WHEN ((a."DUTY CITY" = 'PORT-AU-PRINCE'::text) AND (a.conus = 'N'::text)) THEN 'HAITI'::text
+              WHEN ((a."DUTY CITY" = 'MANILA'::text) AND (a.conus = 'N'::text)) THEN 'PHILIPPINES'::text
+              WHEN ((a."DUTY CITY" = 'DUBAI'::text) AND (a.conus = 'N'::text)) THEN 'UNITED ARAB EMIRATES'::text
+              WHEN ((a."DUTY CITY" = 'MUSCAT'::text) AND (a.conus = 'N'::text)) THEN 'OMAN'::text
+              WHEN ((a."DUTY CITY" = 'MAYAGUEZ'::text) AND (a.conus = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'ISLAMABAD'::text) AND (a.conus = 'N'::text)) THEN 'PAKISTAN'::text
+              WHEN ((a."DUTY CITY" = 'HERMOSILLO'::text) AND (a.conus = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'SANTO DOMINGO'::text) AND (a.conus = 'N'::text)) THEN 'DOMINICAN REPUBLIC'::text
+              WHEN ((a."DUTY CITY" = 'GUATEMALA'::text) AND (a.conus = 'N'::text)) THEN 'GUATEMALA'::text
+              WHEN ((a."DUTY CITY" = 'BOGOTA'::text) AND (a.conus = 'N'::text)) THEN 'COLOMBIA'::text
+              WHEN ((a."DUTY CITY" = 'BRIDGETOWN'::text) AND (a.conus = 'N'::text)) THEN 'BARBADOS'::text
+              WHEN ((a."DUTY CITY" = 'ANTWERP'::text) AND (a.conus = 'N'::text)) THEN 'BELGIUM'::text
+              WHEN ((a."DUTY CITY" = 'PARIS'::text) AND (a.conus = 'N'::text)) THEN 'FRANCE'::text
+              WHEN ((a."DUTY CITY" = 'MATAMOROS'::text) AND (a.conus = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'BANGKOK'::text) AND (a.conus = 'N'::text)) THEN 'THAILAND'::text
+              WHEN ((a."DUTY CITY" = 'SAN SALVADOR'::text) AND (a.conus = 'N'::text)) THEN 'EL SALVADOR'::text
+              WHEN ((a."DUTY CITY" = 'MONTREAL, QUEBEC'::text) AND (a.conus = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'PHNOM PENH'::text) AND (a.conus = 'N'::text)) THEN 'KAMPUCHEA'::text
+              WHEN ((a."DUTY CITY" = 'JIDDA'::text) AND (a.conus = 'N'::text)) THEN 'SAUDI ARABIA'::text
+              WHEN ((a."DUTY CITY" = 'CANBERRA'::text) AND (a.conus = 'N'::text)) THEN 'AUSTRALIA'::text
+              WHEN ((a."DUTY CITY" = 'NAIROBI'::text) AND (a.conus = 'N'::text)) THEN 'KENYA'::text
+              WHEN ((a."DUTY CITY" = 'VANCOUVER, B.C.'::text) AND (a.conus = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'ROME'::text) AND (a.conus = 'N'::text)) THEN 'ITALY'::text
+              WHEN ((a."DUTY CITY" = 'AGANA'::text) AND (a.conus = 'N'::text)) THEN 'GUAM'::text
+              WHEN ((a."DUTY CITY" = 'OTTAWA, ONTARIO'::text) AND (a.conus = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'CIUDAD JUAREZ'::text) AND (a.conus = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'CARTEGENA'::text) AND (a.conus = 'N'::text)) THEN 'COLOMBIA'::text
+              WHEN ((a."DUTY CITY" = 'VIENNA'::text) AND (a.conus = 'N'::text)) THEN 'AUSTRIA'::text
+              WHEN ((a."DUTY CITY" = 'TORONTO, ONTARIO'::text) AND (a.conus = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'MEXICO CITY'::text) AND (a.conus = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'MAITE'::text) AND (a.conus = 'N'::text)) THEN 'GUAM'::text
+              WHEN ((a."DUTY CITY" = 'TEGUCIGALPA'::text) AND (a.conus = 'N'::text)) THEN 'HONDURAS'::text
+              WHEN ((a."DUTY CITY" = 'ATHENS'::text) AND (a.conus = 'N'::text)) THEN 'GREECE'::text
+              WHEN ((a."DUTY CITY" = 'SINGAPORE'::text) AND (a.conus = 'N'::text)) THEN 'SINGAPORE'::text
+              WHEN ((a."DUTY CITY" = 'HANOI'::text) AND (a.conus = 'N'::text)) THEN 'VIETNAM'::text
+              WHEN ((a."DUTY CITY" = 'DOHA'::text) AND (a.conus = 'N'::text)) THEN 'QATAR'::text
+              WHEN ((a."DUTY CITY" = 'DHAHRAN'::text) AND (a.conus = 'N'::text)) THEN 'SAUDI ARABIA'::text
+              WHEN ((a."DUTY CITY" = 'ABU DHABI'::text) AND (a.conus = 'N'::text)) THEN 'UNITED ARAB EMIRATES'::text
+              WHEN ((a."DUTY CITY" = 'FAJARDO'::text) AND (a.conus = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'TAMUNING'::text) AND (a.conus = 'N'::text)) THEN 'GUAM'::text
+              WHEN ((a."DUTY CITY" = 'MONTERREY'::text) AND (a.conus = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'ANKARA'::text) AND (a.conus = 'N'::text)) THEN 'TURKEY'::text
+              WHEN ((a."DUTY CITY" = 'BRUSSELS'::text) AND (a.conus = 'N'::text)) THEN 'BELGIUM'::text
+              WHEN ((a."DUTY CITY" = 'TIJUANA'::text) AND (a.conus = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'PONCE'::text) AND (a.conus = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'MANAGUA'::text) AND (a.conus = 'N'::text)) THEN 'NICARAGUA'::text
+              WHEN ((a."DUTY CITY" = 'CAIRO'::text) AND (a.conus = 'N'::text)) THEN 'EGYPT'::text
+              WHEN ((a."DUTY CITY" = 'KUALA LUMPUR'::text) AND (a.conus = 'N'::text)) THEN 'MALAYSIA'::text
+              WHEN ((a."DUTY CITY" = 'LYON'::text) AND (a.conus = 'N'::text)) THEN 'FRANCE'::text
+              WHEN ((a."DUTY CITY" = 'TEL AVIV'::text) AND (a.conus = 'N'::text)) THEN 'ISRAEL'::text
+              WHEN ((a."DUTY CITY" = 'PRETORIA'::text) AND (a.conus = 'N'::text)) THEN 'SOUTH AFRICA'::text
+              WHEN ((a."DUTY CITY" = 'QUITO'::text) AND (a.conus = 'N'::text)) THEN 'ECUADOR'::text
+              WHEN ((a."DUTY CITY" = 'BUENOS AIRES'::text) AND (a.conus = 'N'::text)) THEN 'ARGENTINA'::text
+              WHEN ((a."DUTY CITY" = 'NASSAU'::text) AND (a.conus = 'N'::text)) THEN 'THE BAHAMAS'::text
+              WHEN ((a."DUTY CITY" = 'GUADALAJARA'::text) AND (a.conus = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'SEOUL'::text) AND (a.conus = 'N'::text)) THEN 'KOREA, REPUBLIC OF'::text
+              WHEN ((a."DUTY CITY" = 'RIYADH'::text) AND (a.conus = 'N'::text)) THEN 'SAUDI ARABIA'::text
+              WHEN ((a."DUTY CITY" = 'SAIPAN'::text) AND (a.conus = 'N'::text)) THEN 'NORTHERN MARIANA ISL'::text
+              WHEN ((a."DUTY CITY" = 'ST THOMAS'::text) AND (a.conus = 'N'::text)) THEN 'VIRGIN ISLANDS, U.S.'::text
+              WHEN ((a."DUTY CITY" = 'AMMAN'::text) AND (a.conus = 'N'::text)) THEN 'JORDAN'::text
+              WHEN ((a."DUTY CITY" = 'HO CH MINH CITY'::text) AND (a.conus = 'N'::text)) THEN 'VIETNAM'::text
+              WHEN ((a."DUTY CITY" = 'ST CROIX'::text) AND (a.conus = 'N'::text)) THEN 'VIRGIN ISLANDS, U.S.'::text
+              WHEN ((a."DUTY CITY" = 'HAVANA'::text) AND (a.conus = 'N'::text)) THEN 'CUBA'::text
+              WHEN ((a."DUTY CITY" = 'LIMA'::text) AND (a.conus = 'N'::text)) THEN 'PERU'::text
+              WHEN ((a."DUTY CITY" = 'CHARLOTTE AMALIE'::text) AND (a.conus = 'N'::text)) THEN 'VIRGIN ISLANDS, U.S.'::text
+              WHEN ((a."DUTY CITY" = 'JAKARTA, JAVA'::text) AND (a.conus = 'N'::text)) THEN 'INDONESIA'::text
+              WHEN ((a."DUTY CITY" = 'CALGARY, ALBERTA'::text) AND (a.conus = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'THE HAGUE'::text) AND (a.conus = 'N'::text)) THEN 'NETHERLANDS'::text
+              WHEN ((a."DUTY CITY" = 'PANAMA'::text) AND (a.conus = 'N'::text)) THEN 'PANAMA'::text
+              WHEN ((a."DUTY CITY" = 'HONG KONG'::text) AND (a.conus = 'N'::text)) THEN 'HONG KONG'::text
+              WHEN ((a."DUTY CITY" = 'BEIJING'::text) AND (a.conus = 'N'::text)) THEN 'CHINA'::text
+              WHEN ((a."DUTY CITY" = 'MADRID'::text) AND (a.conus = 'N'::text)) THEN 'SPAIN'::text
+              WHEN ((a."DUTY CITY" = 'DAKAR'::text) AND (a.conus = 'N'::text)) THEN 'SENEGAL'::text
+              ELSE 'United States'::text
+          END AS cxo_country
+     FROM public.cxo_eoy_archive a;
 ;
 
 CREATE VIEW "public"."cxo_onboard" AS
@@ -3888,49 +4638,6 @@ CREATE VIEW "public"."vcxo_esp_actions" AS
      FROM public.cxo_esp_actions_archive
 ;
 
-CREATE VIEW "public"."vcxo_esp_actions1" AS
-  SELECT cxo_esp_actions_archive."DIR",
-      cxo_esp_actions_archive."PROGRAM_OFFICE",
-      cxo_esp_actions_archive."BUD_LOC",
-      cxo_esp_actions_archive."IPN",
-      cxo_esp_actions_archive."ENHANCEMENT",
-      cxo_esp_actions_archive."PRIORITY",
-      cxo_esp_actions_archive."PROJECT_CODE",
-      cxo_esp_actions_archive."FIRST_NAME",
-      cxo_esp_actions_archive."LAST_NAME",
-      cxo_esp_actions_archive."MRN",
-      cxo_esp_actions_archive."TITLE",
-      cxo_esp_actions_archive."GRADE",
-      cxo_esp_actions_archive."SERIES",
-      cxo_esp_actions_archive."REQUEST_NUMBER",
-      cxo_esp_actions_archive."REQUEST_CODE",
-      cxo_esp_actions_archive."DESCRIPTION",
-      cxo_esp_actions_archive."GRP_NAME",
-      cxo_esp_actions_archive."GROUP_TYPE",
-      cxo_esp_actions_archive."ORG_CODE",
-      cxo_esp_actions_archive."LINE1",
-      cxo_esp_actions_archive."LINE2",
-      cxo_esp_actions_archive."LINE3",
-      cxo_esp_actions_archive."LINE4",
-      cxo_esp_actions_archive."LINE5",
-      cxo_esp_actions_archive."LINE6",
-      cxo_esp_actions_archive."BOX_TYPE",
-      cxo_esp_actions_archive."EFFECTIVE_DATE",
-      cxo_esp_actions_archive."INTERNAL_SELECTION",
-      cxo_esp_actions_archive."POI",
-      cxo_esp_actions_archive."DATE_CREATED",
-      cxo_esp_actions_archive."LAST_ACTIVITY",
-      cxo_esp_actions_archive."ANNOUNCEMENT_CODE",
-      cxo_esp_actions_archive."CERTIFICATE_NAME",
-      cxo_esp_actions_archive."ANNOUNCEMENT_OWNER",
-      cxo_esp_actions_archive."CATEGORY_CODE",
-      cxo_esp_actions_archive.filename,
-      cxo_esp_actions_archive.cxo_pp1,
-      cxo_esp_actions_archive.fy,
-      cxo_esp_actions_archive.ingested_at
-     FROM public.cxo_esp_actions_archive
-;
-
 CREATE VIEW "public"."vcxo_esp_awards" AS
   SELECT a."REQUEST NUMBER",
       a."NOA",
@@ -4129,182 +4836,479 @@ CREATE VIEW "public"."vcxo_esp_awards" AS
     ORDER BY a.cxo_pp1
 ;
 
-CREATE VIEW "public"."vcxo_esp_awards1" AS
-  SELECT a."REQUEST NUMBER",
-      a."NOA",
-      a."DESCRIPTION",
-      a."TIME OFF HOURS",
-      a."AWARD AMOUNT",
-      a."USE STORED ACCT",
-      a."ACCTG_DIST_CODE",
-      a."CREATOR GROUP",
-      a."CURRENT GROUP",
-      a."PEFF DATE",
-      a."EFFECTIVE DATE",
-      a."FULL NAME",
-      a."POS TITLE",
-      a."SERIES",
-      a."GRADE",
-      a."STEP",
-      a."ORG",
-      a."LINE1",
-      a."LINE2",
-      a."LINE3",
-      a."LINE4",
-      a."LINE5",
-      a."ORGANIZATION",
-      a."DEPT",
-      a."STATUS",
-      a."OPEN DATE",
-      a."CLOSE DATE",
-      a."GROUP AWARD",
-      a."GROUP COUNT",
-      a."TIME OFF",
-      a."PERS ACTN DATE",
-      a."PERIOD COVERED START DATE",
-      a."PERIOD COVERED END DATE",
-      a."ACCESS CODE",
+CREATE VIEW "public"."vcxo_esp" AS
+   SELECT cxo_esp_actions_archive."DIR",
+      cxo_esp_actions_archive."PROGRAM_OFFICE",
+      cxo_esp_actions_archive."BUD_LOC",
+      cxo_esp_actions_archive."IPN",
+      cxo_esp_actions_archive."ENHANCEMENT",
+      cxo_esp_actions_archive."PRIORITY",
+      cxo_esp_actions_archive."PROJECT_CODE",
+      cxo_esp_actions_archive."FIRST_NAME",
+      cxo_esp_actions_archive."LAST_NAME",
+      cxo_esp_actions_archive."MRN",
+      cxo_esp_actions_archive."TITLE",
+      cxo_esp_actions_archive."GRADE",
+      cxo_esp_actions_archive."SERIES",
+      cxo_esp_actions_archive."REQUEST_NUMBER",
+      cxo_esp_actions_archive."REQUEST_CODE",
+      cxo_esp_actions_archive."DESCRIPTION",
+      cxo_esp_actions_archive."GRP_NAME",
+      cxo_esp_actions_archive."GROUP_TYPE",
+      cxo_esp_actions_archive."ORG_CODE",
+      cxo_esp_actions_archive."LINE1",
+      cxo_esp_actions_archive."LINE2",
+      cxo_esp_actions_archive."LINE3",
+      cxo_esp_actions_archive."LINE4",
+      cxo_esp_actions_archive."LINE5",
+      cxo_esp_actions_archive."LINE6",
+      cxo_esp_actions_archive."BOX_TYPE",
+      cxo_esp_actions_archive."EFFECTIVE_DATE",
+      cxo_esp_actions_archive."INTERNAL_SELECTION",
+      cxo_esp_actions_archive."POI",
+      cxo_esp_actions_archive."DATE_CREATED",
+      cxo_esp_actions_archive."LAST_ACTIVITY",
+      cxo_esp_actions_archive."ANNOUNCEMENT_CODE",
+      cxo_esp_actions_archive."CERTIFICATE_NAME",
+      cxo_esp_actions_archive."ANNOUNCEMENT_OWNER",
+      cxo_esp_actions_archive."CATEGORY_CODE",
+      cxo_esp_actions_archive.filename,
+      cxo_esp_actions_archive.cxo_pp1,
+      cxo_esp_actions_archive.fy,
+      cxo_esp_actions_archive.ingested_at
+     FROM public.cxo_esp_actions_archive;
+;
+
+CREATE VIEW "public"."vcxo_map2" AS
+   SELECT a."SEX_CODE",
+      a."Occ Series",
+      a."DATE_SCD_LEAVE",
+      a."DATE_AGENCY_EOD",
+      a."DATE_ENTERED_PRES_GRADE",
+      a."TITLE GROUP",
       a.filename,
-      a.pp_end,
+      a."POSITION_OFFICIAL_TITLE",
+      a."DUTY CITY",
+      a."DUTY STATE",
+      a."LAW ENF",
+      a."PML on board",
+      a."BARGAINING_UNIT_STATUS_CD",
+      a."DIR",
+      a."OFFICE",
+      a."BUD",
+      a."ORG",
+      a."ORG TEXT",
+      a."CONUS",
+      a."CY_PP",
       a.cxo_pp1,
-      a.cxo_fy,
       a.ingested_at,
+      a.pp_dt_end,
+      a.next_pp_dt,
+      a."GRADE",
+      a."DATE_SCD_WGI",
+      a."POSITION_TARGET_GRADE",
+      a."TITLE",
+      a."SERIES",
+      a."LEO_IND",
+      a."POSITION_SUPERVISORY_CODE",
+      a."Employee Name",
+      a."EMPLOYEE_WORK_EMAIL",
+      a."Veterans Preference",
           CASE
-              WHEN ("left"(a."ORG", 4) = 'BB06'::text) THEN 'DIR'::text
-              WHEN ("left"(a."ORG", 4) = 'BB05'::text) THEN 'DIR'::text
-              WHEN ("left"(a."ORG", 4) = 'BB22'::text) THEN 'DIR'::text
-              WHEN ("left"(a."ORG", 4) = 'BB07'::text) THEN 'DIR'::text
-              WHEN ("left"(a."ORG", 4) = 'BB18'::text) THEN 'ERO'::text
-              WHEN ("left"(a."ORG", 4) = 'BB70'::text) THEN 'HSI'::text
-              WHEN ("left"(a."ORG", 4) = 'BB24'::text) THEN 'MGT'::text
-              WHEN ("left"(a."ORG", 4) = 'BB23'::text) THEN 'MGT'::text
-              WHEN ("left"(a."ORG", 4) = 'BB21'::text) THEN 'MGT'::text
-              ELSE NULL::text
-          END AS dir,
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP DIR ICE'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF OF STAFF'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP CH OF STAFF'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPECIAL ADVISOR (PROTOCOL & SPEC EVTS)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG MGR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MSN SUPT SPECL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASSISTANT EXEC SEC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'WRI EDIT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CONGRSNL LIASN SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CONGRSNL LIASN OFCR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPEC ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PUBLIC AFF SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PUBLIC AFF SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MISSION SUPPORT SPECIALIST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY MGMT & PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'VIS INF SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'AUDIO VIS PRODN SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY AUDIO VIS PRODN SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR DIVERSITY & CIVIL RIGHTS'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EQ EMPLMT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CLK'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EQ EMPLMT MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY POLICY ADVISOR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PLCY ADVSR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY EQ EMPLMT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY EQ OPP SPEC'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'POLICY ADVSR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CRIM INVSTGR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIM INVSTGR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EQUIP SPECLST ORDNC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPP TECHNCN OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY GEN ENGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ENGRG TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW ENFORCEMENT PROG. MGR.'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPRTN OFFCR (COURSE DEVLP/INSTR)'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRAINING SPEC (FIREARMS)'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FIREARMS PGRM SPCLST'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRNG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIMINAL INVESTIGATOR (INSTRUCTOR)'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DETNTN & DEPORTATN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY DETNTN & DEPORTATN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FACIL OPERS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY COMMUNITY RELATIONS OFFCR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'COMMUNITY RELATIONS OFFCR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SENIOR ADVSR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP CHIEF OF STAFF'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STAFF ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BUDG ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'REGULATORY AND POLICY ANALYST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ECONMST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PLCY ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY REGULATORY ANALYST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PLCY ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ECONOMIST (CHIEF)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CH OF STAFF'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY MSN SUPT SPECL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INSTRUCTNL SYS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSTRUCTNL SYS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG MGR (LRNG MGMT)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRNG INSTRU'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSTRUCTIONAL SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MISSION SUPRT ASST OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY TRNG INSTRU'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY CHIEF HUMAN CAPITAL OFFICER'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF HUMAN CAPITAL OFFICER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (COMPEN)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SENIOR HUMAN RESOURCES ADVISOR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY STRATEGIC ADVSR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES ASST OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (EMPL BE'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (RECRUIT&PLAC)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (RECRUIT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (CLASSIF'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (CLASSIFN)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRE-EMPLOYMENT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRE EMPLOYMENT ASST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STUD TR (HUMAN RESOURCES)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HR SPECLST (EMPL & LABOR REL)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (LABOR REL)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (LABOR R'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD HUMAN RESOURCES SPECLST (EMPL REL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (EMPL RE'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HR SPECLST (CLASSIFN RECRUIT & PLAC)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PHYSICIAN'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OCCUPTL HLTH NURSE'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DRUG PROG COORD'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HUMAN RESOURCES SPECLST (EMPL BENES)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BEHAVIORAL HLTH SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EMP ASSTNC PROG MGR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PSYCH'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHAPLAIN DIR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PERS RES PSYCH'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PERS RESEARCH PSYCH'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT INF ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (INFO SY'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ADMV OFFCR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ADMV OFFCR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CIVILIAN PAY TECHNCN OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HUMAN RESOURCES SPECLST (COMPEN)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR INF GOVERNANCE'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'RECS AND INFO MGMT SPEC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OPER RES ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRIVACY OFFICER'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PRO ANAL (PRIVACY COMPLIANCE)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SR INFO GOV ANALYST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'GOVNMNT INFO SPEC (PRIVACY COMPLIANCE)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANAL (BUDG & COR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY RECORDS & INFORMATION MGMT SPECI'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PARALEGAL SPECLST (FOIA/PA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PARALEGAL SPECLST'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FOIA/PA ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PARALEGAL SPECLST'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PARALEGAL SPECLST (FOIA/PA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PARALEGAL SPECLST (FOIA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FREEDOM OF INFORMATION ACT DIRECTOR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY DIRECTOR FOIA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'GEN ENGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OPERATIONS RESEARCH ANALYST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP PRINC LEG ADVSR'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP PRIN LEGAL ADVSR MANAGEMENT'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRINCIPAL LEGAL ADVISOR FOR ICE'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY GEN ATTY'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'GEN ATTY'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ATTY ADVSR'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASSOC DEP PRINC LEG ADVSR'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PARALEGAL SPECIALIST (OPLA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP PRINC LEGAL ADVSR HEADQUARTES'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HISTRN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LIBRN LAW'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEG ASST OA'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY GEN ATTY (ETHICS)'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'GEN ATTY (ETHCIS)'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MAIL & FILE CLK OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD LEG ASST'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF COUNSEL'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW CLK'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY LEG ASST OA'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRIAL ATTY'::text) THEN 'ATTY'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STUD TR (LEG ASST) OA'::text) THEN 'LGLSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ENFORCEMENT PROGRAMS MGR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR ENFCMNT & REMOVAL OPS'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP ASST DIR FLD OPERS'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTEL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EMERGENCY MANAGEMENT SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY EMERGENCY MANAGEMENT SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STATCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY ASSISTANT DIRECTOR ERO'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANAL (DET SVCS MGR)'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPRTN OFFCR (COMP STDS OFFCR)'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR SECURE COMMUNITIES'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIM TARGETING SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CRIM TARGETING SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPRTN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY LAW ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR ICE SRVCS HLTH CORPS'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'HEALTH SYSTEMS SPECIALIST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PHYSCN (PSYCHTRC)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (CLINICAL DIRECTOR)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (PSYCHIATRY)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MEDCL OFFCR'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSCN (GEN PRACTICE)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (REG CLINICAL DIR)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (CONSULTANT)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSICIAN (DAD/MED DIRECTOR)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CLNCL NURSE'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY HEALTH SYSTEM SPECIALIST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PRACTICAL NURSE'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'NURSE PRACTITIONER'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MEDCL REC TECHNCN'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DNTL HYGIENIST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY WRI EDIT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECY OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ADV PRAC NURSE (NURSE PRACTITIONER)'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIAGNSTC RADIOLOGIC TECHNCN'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DNTL ASST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYSCN ASST'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CLNCL PSYCH'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SOC WRKR'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ADVANCE NURSE PRAC'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MATHCL STATCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ENFORCEMENT & REMOVAL ASSISTANT OA'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ENFCMNT & RMVL ASST OA'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'STUD TR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRAFF MGMT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TRNG TECHNCN OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPP TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPP TECHNCN (INVENT)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BOND CNTL SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY BOND SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW ENFCMNT TECHNCN'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ADMV ASST OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'RECR SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'IMMGRTN ENF AGT'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FOOD SRVS SPEC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'AUTMTV MECH'::text) THEN 'WGSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LAW ENFCMNT COMMUN ASST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY MSN SUPT SPECL (COTR)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MTRLS HNDLR'::text) THEN 'WGSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OFF AUTOMATION ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVENT MGMT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ELCTRON TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OFF AUTOMATION CLK'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT PROG TECHNCN OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR OFF OF ACQ'::text) THEN 'CONT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROCUR ANAL'::text) THEN 'CONT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEBARMENT ANAL (SENIOR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEBARMENT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CONTR SPECLST'::text) THEN 'CONT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CONTR SPECLST'::text) THEN 'CONT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY DEBARMENT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EXEC ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROCUR & BUS RESOURCES MGMT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PROCUR & BUS RESOURCES MGT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SR PROCUR & BUS RESOURCES MGMT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BUS OPERS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP ASSOC DIRECTOR OPR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASSOC DIR OPR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANAL (SR PROG ADVSR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR INVST OPR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OVERSIGHT ADM (PREA)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVESTIGATIVE ANALYST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OPERTNL ANALS SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSIDER THREAT OPERTNL ANAL'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTELL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'OPERATIONAL ANALYSIS SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTEL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TECHNCL ENFCMNT OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY TECHNCL ENFCMNT OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTELL & INFO SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INSIDER THREAT SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MGMT & PROG ANALYST (PROG ADVSR)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVESTIGATIVE PROGRAM OFFICER'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIV DIRINSPR & DETENTION OVERSIGHT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSPS & COMPLNC MGR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INSPS & COMPLNC SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSPS & COMPLC SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SUPV ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INSPS & COMPLNC SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SECUR SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PERS SECUR SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PERS SECUR SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECUR SPECLST (POLYGRAPH EXAMNR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SECUR SPECLST (POLYGRAPH EXMNR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYS SECUR SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECUR SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECUR INSPR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF INFORMATION OFFICER'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP CHIEF INFORMATION OFFICER'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY IT SPEC (ENTACH/INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'COMMUNICATIONS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (PLCYPLN)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (SYSANALYSIS)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'IT PROJ MGR'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (SYSADMIN)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (APPSW/INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ITSPEC (INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (DATAMGT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (SYSANALYSIS)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (PLCYPLN)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (CUSTSPT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ITSPEC (NETWORK)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (CUSTSPT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ITSPEC (NETWORK)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ITSPEC (CUSTSPT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ITSPEC (NETWORK)'::text) THEN 'ITSPEC'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY BUS OPERS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY CHIEF FINANCIAL OFFICER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CHIEF FINANCIAL OFCR (ICE)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPV ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD MGMT & PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD FNANCL PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FNANCL PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FIN PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR BUDGET & PROGRAM PERFORMANCE'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY BUDG ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROGRAM MANAGEMENT SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SAFETY & OCCUPTL HLTH SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INDL HYGIENIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SAFETY & OCCUPTL HLTH MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'NURSE CONSULTANT'::text) THEN 'MED'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MAIL & FILE ASST (OA)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPACE MGMT SUPRT SPECL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ARCH'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEASE ADMIN PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPACE MGMT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG MGR (FACILITIES)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'BLDG MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FACIL PROG MGR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'UTIL SYS RPRER OPERTR'::text) THEN 'WGSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR OF FNANCL MGMT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNANCL PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SYS ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'MISSION SUPRT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SYS ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNANCL SYS MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FINANCIAL SYSTEMS MANAGER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FINANCIL MGMT SYSTEMS ANAL (TEAM LEAD)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNANCL BUS INTEG MANAGER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ACCTG TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY MGMT INF ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNANCL ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD ACCTG TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FNANCL MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ACCNT (TAX)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPUTY DIRECTOR INVESTIGATIONS'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASST DIR OFFICE OF INVESTIGATIONS'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'AUDR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP ASST DIR INVEST'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTELL OPERS SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIM RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PAROLE PROG SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ASSET FORFEIT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SOC SCI PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SOC SCI PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTELL OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTELL OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FORENSIC DOCMT EXAMN'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FORENSIC DOCMT EXAMNR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FNGRPRNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHOTOGR (FORENSIC)'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SR. DIG MULTIMEDIA FORENSIC ANALYST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEIZED PROPERTY SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FNGRPRNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FORENSIC DOCMT EXAMNR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PHYS SCNTST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EMER PREPAREDNESS SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEVP APPEALS ADJUDR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'COUNTERTERRORISM INTELL SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEVP FLD REPR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SEVP FLD REPR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEVP ADJUDR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY SEVP ADJUDR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'EXECUTIVE DIRECTOR LEIS'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CYBER OPERS OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'COMPR FORENSIC ANAL'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'CRIM INVSTGR (NATL PROG MGR)'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TACTICAL COMMUN OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TELECOMMUN SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SOC SCI PROG SPEC (VICTIM WIT ASST)'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVESTIGATIVE ASST OA'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SPEC AGT IN CHG'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTELL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SEIZED PROP SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INVESTIGATIVE CLK OA'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'FILE ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TECHNCL OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG ASST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INTELL ASST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ICE TACTICAL OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY ICE TACTICAL OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'PROG SUPRT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'INF RECPTNST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'ENFCMNT OPERS SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SECTOR ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'LEAD SECTOR ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'TECHNICAL EQUIPMENT SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY TACTICAL COMMUN OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR FEDL EXPORT ENFCMNT COORDNTN CENTR'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PROG SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INVESTIGATIVE ANALYST'::text) THEN 'LESUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY FOIA/PRIVACY ACT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR INTELL'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP ASST DIR INTEL'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY INTELL OPERS SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEP DIR, INTERNATIONAL AFFAIRS'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DIR INTERPOL WASH'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'SUPVY CRIM INVSTGR (OPERS CH)'::text) THEN 'CI'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'DEPRTN LIASN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."POSITION_OFFICIAL_TITLE" = 'IMMIGRATN OFFCR'::text) THEN 'LEOTHR'::text
+              ELSE a."TITLE GROUP"
+          END AS "tableau_TG",
           CASE
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0622'::text)) THEN 'OAS'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0504'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0508'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0502'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0505'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0500'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0501'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0503'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0506'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2200'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2210'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2211'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2212'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2214'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB07'::text) OR ("left"(a."ORG", 6) = 'BB0710'::text)) THEN 'PLA'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1862'::text)) THEN 'DRO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1861'::text)) THEN 'DRO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1850'::text)) THEN 'DRO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1863'::text)) THEN 'DRO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1800'::text)) THEN 'DRO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1806'::text)) THEN 'DRO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7009'::text)) THEN 'IAF'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7004'::text)) THEN 'INV'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7000'::text)) THEN 'INV'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7001'::text)) THEN 'INV'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7002'::text)) THEN 'INV'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7003'::text)) THEN 'INV'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7005'::text)) THEN 'INV'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7006'::text)) THEN 'INV'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7007'::text)) THEN 'INV'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7010'::text)) THEN 'INV'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7008'::text)) THEN 'ITL'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2410'::text)) THEN 'CFO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2440'::text)) THEN 'CFO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2400'::text)) THEN 'CFO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2420'::text)) THEN 'CFO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2430'::text)) THEN 'CFO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2300'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2301'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2302'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2303'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2304'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2305'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0600'::text)) THEN 'MAA'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0602'::text)) THEN 'MAA'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2100'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2110'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2120'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2131'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2132'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2140'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2150'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2160'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2180'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2190'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0609'::text)) THEN 'OAS'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0617'::text)) THEN 'OAS'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0605'::text)) THEN 'OAS'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0603'::text)) THEN 'OAS'::text
-              ELSE NULL::text
-          END AS office,
-          CASE
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0622'::text)) THEN 'IPA'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0504'::text)) THEN 'DCR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0508'::text)) THEN 'IPE'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0502'::text)) THEN 'OCR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0505'::text)) THEN 'OFT'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0500'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0501'::text)) THEN 'OOD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0503'::text)) THEN 'OPA'::text
-              WHEN (("left"(a."ORG", 4) = 'BB05'::text) OR ("left"(a."ORG", 6) = 'BB0506'::text)) THEN 'OPE'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2200'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2210'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2211'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2212'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB22'::text) OR ("left"(a."ORG", 6) = 'BB2214'::text)) THEN 'OPR'::text
-              WHEN (("left"(a."ORG", 4) = 'BB07'::text) OR ("left"(a."ORG", 6) = 'BB0710'::text)) THEN 'CCO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1862'::text)) THEN 'FAO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1861'::text)) THEN 'FAT'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1850'::text)) THEN 'FCT'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1863'::text)) THEN 'FDN'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1800'::text)) THEN 'FHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB18'::text) OR ("left"(a."ORG", 6) = 'BB1806'::text)) THEN 'FHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7009'::text)) THEN 'OAG'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7004'::text)) THEN 'VAT'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7000'::text)) THEN 'VHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7001'::text)) THEN 'VHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7002'::text)) THEN 'VHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7003'::text)) THEN 'VHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7005'::text)) THEN 'VHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7006'::text)) THEN 'VHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7007'::text)) THEN 'VHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7010'::text)) THEN 'VHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB70'::text) OR ("left"(a."ORG", 6) = 'BB7008'::text)) THEN 'IHQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2410'::text)) THEN 'ACO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2440'::text)) THEN 'BFC'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2400'::text)) THEN 'CFO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2420'::text)) THEN 'OBD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB24'::text) OR ("left"(a."ORG", 6) = 'BB2430'::text)) THEN 'OFA'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2300'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2301'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2302'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2303'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2304'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB23'::text) OR ("left"(a."ORG", 6) = 'BB2305'::text)) THEN 'CIO'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0600'::text)) THEN 'MAA'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0602'::text)) THEN 'SRD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2100'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2110'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2120'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2131'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2132'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2140'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2150'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2160'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2180'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB21'::text) OR ("left"(a."ORG", 6) = 'BB2190'::text)) THEN 'OAQ'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0609'::text)) THEN 'HCD'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0617'::text)) THEN 'IGP'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0605'::text)) THEN 'LDC'::text
-              WHEN (("left"(a."ORG", 4) = 'BB06'::text) OR ("left"(a."ORG", 6) = 'BB0603'::text)) THEN 'POL'::text
-              ELSE NULL::text
-          END AS bud,
+              WHEN (a."POSITION_SUPERVISORY_CODE" = '2.0'::text) THEN '2'::text
+              WHEN (a."POSITION_SUPERVISORY_CODE" = '7.0'::text) THEN '7'::text
+              WHEN (a."POSITION_SUPERVISORY_CODE" = '8.0'::text) THEN '8'::text
+              WHEN (a."POSITION_SUPERVISORY_CODE" = '3.0'::text) THEN '3'::text
+              WHEN (a."POSITION_SUPERVISORY_CODE" = '5.0'::text) THEN '5'::text
+              WHEN (a."POSITION_SUPERVISORY_CODE" = '6.0'::text) THEN '6'::text
+              ELSE a."POSITION_SUPERVISORY_CODE"
+          END AS tableau_position_supervisory_code,
           CASE
               WHEN (a."GRADE" = '0.0'::text) THEN '0'::text
               WHEN (a."GRADE" = '11.0'::text) THEN '11'::text
@@ -4322,17 +5326,153 @@ CREATE VIEW "public"."vcxo_esp_awards1" AS
               WHEN (a."GRADE" = '13.0'::text) THEN '13'::text
               WHEN (a."GRADE" = '6.0'::text) THEN '6'::text
               ELSE a."GRADE"
-          END AS tableau_grade
-     FROM public.cxo_esp_awards_archive a
-    ORDER BY a.cxo_pp1
-;
-
-CREATE VIEW "public"."vcxo_esp" AS
-  
-;
-
-CREATE VIEW "public"."vcxo_map2" AS
-  
+          END AS tableau_grade,
+          CASE
+              WHEN ((a."DUTY CITY" = 'LORDS VALLEY'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'ATLANTA'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHICAGO'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'PASCO'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'STOCKTON'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'HOUMA'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'BLUE ASH'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'NEW YORK -QUEENS'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'GREAT FALLS'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SAN ANGELO'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'KAILUA KONA'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'IDAHO FALLS'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SALISBURY'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHARLESTON NAVAL CX'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SALT LAKE CITY'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'FARMVILLE'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'LOUISVILLE'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'BOSTON'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'FT MYERS'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHEYENNE'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'GRAND ISLAND'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'ROSWELL'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'HOULTON'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'LITTLE ROCK'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'WINSTON SALEM'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'ATLANTIC CITY'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'KANSAS CITY'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'ANCHORAGE'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'FARGO'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'MESA'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'WASHINGTON'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SAINT ALBANS'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'DURANGO'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHATTANOOGA'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'DETROIT'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'GADSDEN'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'OKMULGEE'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'DULUTH'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'HARTFORD'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'MEDFORD'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'GULFPORT'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'PORTSMOUTH'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'MADISON'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'FORT WAYNE'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SIOUX FALLS'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'RENO'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'CHARLESTON'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'WICHITA'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'DOVER'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'WARWICK'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              WHEN ((a."DUTY CITY" = 'SIOUX CITY'::text) AND (a."CONUS" = 'Y'::text)) THEN a."DUTY STATE"
+              ELSE a."DUTY STATE"
+          END AS cxo_state,
+          CASE
+              WHEN ((a."DUTY CITY" = 'FRANKFURT'::text) AND (a."CONUS" = 'N'::text)) THEN 'GERMANY'::text
+              WHEN ((a."DUTY CITY" = 'MANAMA'::text) AND (a."CONUS" = 'N'::text)) THEN 'BAHRAIN'::text
+              WHEN ((a."DUTY CITY" = 'KINGSTON'::text) AND (a."CONUS" = 'N'::text)) THEN 'JAMAICA'::text
+              WHEN ((a."DUTY CITY" = 'AGUADILLA'::text) AND (a."CONUS" = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'SAN JUAN'::text) AND (a."CONUS" = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'CASABLANCA'::text) AND (a."CONUS" = 'N'::text)) THEN 'MOROCCO'::text
+              WHEN ((a."DUTY CITY" = 'STUTTGART'::text) AND (a."CONUS" = 'N'::text)) THEN 'GERMANY'::text
+              WHEN ((a."DUTY CITY" = 'LONDON'::text) AND (a."CONUS" = 'N'::text)) THEN 'UNITED KINGDOM'::text
+              WHEN ((a."DUTY CITY" = 'JERUSALEM'::text) AND (a."CONUS" = 'N'::text)) THEN 'ISRAEL'::text
+              WHEN ((a."DUTY CITY" = 'BRASILIA'::text) AND (a."CONUS" = 'N'::text)) THEN 'BRAZIL'::text
+              WHEN ((a."DUTY CITY" = 'NEW DELHI'::text) AND (a."CONUS" = 'N'::text)) THEN 'INDIA'::text
+              WHEN ((a."DUTY CITY" = 'WARSAW'::text) AND (a."CONUS" = 'N'::text)) THEN 'POLAND'::text
+              WHEN ((a."DUTY CITY" = 'GUANGZHOU'::text) AND (a."CONUS" = 'N'::text)) THEN 'CHINA'::text
+              WHEN ((a."DUTY CITY" = 'PORT-AU-PRINCE'::text) AND (a."CONUS" = 'N'::text)) THEN 'HAITI'::text
+              WHEN ((a."DUTY CITY" = 'MANILA'::text) AND (a."CONUS" = 'N'::text)) THEN 'PHILIPPINES'::text
+              WHEN ((a."DUTY CITY" = 'DUBAI'::text) AND (a."CONUS" = 'N'::text)) THEN 'UNITED ARAB EMIRATES'::text
+              WHEN ((a."DUTY CITY" = 'MUSCAT'::text) AND (a."CONUS" = 'N'::text)) THEN 'OMAN'::text
+              WHEN ((a."DUTY CITY" = 'MAYAGUEZ'::text) AND (a."CONUS" = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'ISLAMABAD'::text) AND (a."CONUS" = 'N'::text)) THEN 'PAKISTAN'::text
+              WHEN ((a."DUTY CITY" = 'HERMOSILLO'::text) AND (a."CONUS" = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'SANTO DOMINGO'::text) AND (a."CONUS" = 'N'::text)) THEN 'DOMINICAN REPUBLIC'::text
+              WHEN ((a."DUTY CITY" = 'GUATEMALA'::text) AND (a."CONUS" = 'N'::text)) THEN 'GUATEMALA'::text
+              WHEN ((a."DUTY CITY" = 'BOGOTA'::text) AND (a."CONUS" = 'N'::text)) THEN 'COLOMBIA'::text
+              WHEN ((a."DUTY CITY" = 'BRIDGETOWN'::text) AND (a."CONUS" = 'N'::text)) THEN 'BARBADOS'::text
+              WHEN ((a."DUTY CITY" = 'ANTWERP'::text) AND (a."CONUS" = 'N'::text)) THEN 'BELGIUM'::text
+              WHEN ((a."DUTY CITY" = 'PARIS'::text) AND (a."CONUS" = 'N'::text)) THEN 'FRANCE'::text
+              WHEN ((a."DUTY CITY" = 'MATAMOROS'::text) AND (a."CONUS" = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'BANGKOK'::text) AND (a."CONUS" = 'N'::text)) THEN 'THAILAND'::text
+              WHEN ((a."DUTY CITY" = 'SAN SALVADOR'::text) AND (a."CONUS" = 'N'::text)) THEN 'EL SALVADOR'::text
+              WHEN ((a."DUTY CITY" = 'MONTREAL, QUEBEC'::text) AND (a."CONUS" = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'PHNOM PENH'::text) AND (a."CONUS" = 'N'::text)) THEN 'KAMPUCHEA'::text
+              WHEN ((a."DUTY CITY" = 'JIDDA'::text) AND (a."CONUS" = 'N'::text)) THEN 'SAUDI ARABIA'::text
+              WHEN ((a."DUTY CITY" = 'CANBERRA'::text) AND (a."CONUS" = 'N'::text)) THEN 'AUSTRALIA'::text
+              WHEN ((a."DUTY CITY" = 'NAIROBI'::text) AND (a."CONUS" = 'N'::text)) THEN 'KENYA'::text
+              WHEN ((a."DUTY CITY" = 'VANCOUVER, B.C.'::text) AND (a."CONUS" = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'ROME'::text) AND (a."CONUS" = 'N'::text)) THEN 'ITALY'::text
+              WHEN ((a."DUTY CITY" = 'AGANA'::text) AND (a."CONUS" = 'N'::text)) THEN 'GUAM'::text
+              WHEN ((a."DUTY CITY" = 'OTTAWA, ONTARIO'::text) AND (a."CONUS" = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'CIUDAD JUAREZ'::text) AND (a."CONUS" = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'CARTEGENA'::text) AND (a."CONUS" = 'N'::text)) THEN 'COLOMBIA'::text
+              WHEN ((a."DUTY CITY" = 'VIENNA'::text) AND (a."CONUS" = 'N'::text)) THEN 'AUSTRIA'::text
+              WHEN ((a."DUTY CITY" = 'TORONTO, ONTARIO'::text) AND (a."CONUS" = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'MEXICO CITY'::text) AND (a."CONUS" = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'MAITE'::text) AND (a."CONUS" = 'N'::text)) THEN 'GUAM'::text
+              WHEN ((a."DUTY CITY" = 'TEGUCIGALPA'::text) AND (a."CONUS" = 'N'::text)) THEN 'HONDURAS'::text
+              WHEN ((a."DUTY CITY" = 'ATHENS'::text) AND (a."CONUS" = 'N'::text)) THEN 'GREECE'::text
+              WHEN ((a."DUTY CITY" = 'SINGAPORE'::text) AND (a."CONUS" = 'N'::text)) THEN 'SINGAPORE'::text
+              WHEN ((a."DUTY CITY" = 'HANOI'::text) AND (a."CONUS" = 'N'::text)) THEN 'VIETNAM'::text
+              WHEN ((a."DUTY CITY" = 'DOHA'::text) AND (a."CONUS" = 'N'::text)) THEN 'QATAR'::text
+              WHEN ((a."DUTY CITY" = 'DHAHRAN'::text) AND (a."CONUS" = 'N'::text)) THEN 'SAUDI ARABIA'::text
+              WHEN ((a."DUTY CITY" = 'ABU DHABI'::text) AND (a."CONUS" = 'N'::text)) THEN 'UNITED ARAB EMIRATES'::text
+              WHEN ((a."DUTY CITY" = 'FAJARDO'::text) AND (a."CONUS" = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'TAMUNING'::text) AND (a."CONUS" = 'N'::text)) THEN 'GUAM'::text
+              WHEN ((a."DUTY CITY" = 'MONTERREY'::text) AND (a."CONUS" = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'ANKARA'::text) AND (a."CONUS" = 'N'::text)) THEN 'TURKEY'::text
+              WHEN ((a."DUTY CITY" = 'BRUSSELS'::text) AND (a."CONUS" = 'N'::text)) THEN 'BELGIUM'::text
+              WHEN ((a."DUTY CITY" = 'TIJUANA'::text) AND (a."CONUS" = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'PONCE'::text) AND (a."CONUS" = 'N'::text)) THEN 'PUERTO RICO'::text
+              WHEN ((a."DUTY CITY" = 'MANAGUA'::text) AND (a."CONUS" = 'N'::text)) THEN 'NICARAGUA'::text
+              WHEN ((a."DUTY CITY" = 'CAIRO'::text) AND (a."CONUS" = 'N'::text)) THEN 'EGYPT'::text
+              WHEN ((a."DUTY CITY" = 'KUALA LUMPUR'::text) AND (a."CONUS" = 'N'::text)) THEN 'MALAYSIA'::text
+              WHEN ((a."DUTY CITY" = 'LYON'::text) AND (a."CONUS" = 'N'::text)) THEN 'FRANCE'::text
+              WHEN ((a."DUTY CITY" = 'TEL AVIV'::text) AND (a."CONUS" = 'N'::text)) THEN 'ISRAEL'::text
+              WHEN ((a."DUTY CITY" = 'PRETORIA'::text) AND (a."CONUS" = 'N'::text)) THEN 'SOUTH AFRICA'::text
+              WHEN ((a."DUTY CITY" = 'QUITO'::text) AND (a."CONUS" = 'N'::text)) THEN 'ECUADOR'::text
+              WHEN ((a."DUTY CITY" = 'BUENOS AIRES'::text) AND (a."CONUS" = 'N'::text)) THEN 'ARGENTINA'::text
+              WHEN ((a."DUTY CITY" = 'NASSAU'::text) AND (a."CONUS" = 'N'::text)) THEN 'THE BAHAMAS'::text
+              WHEN ((a."DUTY CITY" = 'GUADALAJARA'::text) AND (a."CONUS" = 'N'::text)) THEN 'MEXICO'::text
+              WHEN ((a."DUTY CITY" = 'SEOUL'::text) AND (a."CONUS" = 'N'::text)) THEN 'KOREA, REPUBLIC OF'::text
+              WHEN ((a."DUTY CITY" = 'RIYADH'::text) AND (a."CONUS" = 'N'::text)) THEN 'SAUDI ARABIA'::text
+              WHEN ((a."DUTY CITY" = 'SAIPAN'::text) AND (a."CONUS" = 'N'::text)) THEN 'NORTHERN MARIANA ISL'::text
+              WHEN ((a."DUTY CITY" = 'ST THOMAS'::text) AND (a."CONUS" = 'N'::text)) THEN 'VIRGIN ISLANDS, U.S.'::text
+              WHEN ((a."DUTY CITY" = 'AMMAN'::text) AND (a."CONUS" = 'N'::text)) THEN 'JORDAN'::text
+              WHEN ((a."DUTY CITY" = 'HO CH MINH CITY'::text) AND (a."CONUS" = 'N'::text)) THEN 'VIETNAM'::text
+              WHEN ((a."DUTY CITY" = 'ST CROIX'::text) AND (a."CONUS" = 'N'::text)) THEN 'VIRGIN ISLANDS, U.S.'::text
+              WHEN ((a."DUTY CITY" = 'HAVANA'::text) AND (a."CONUS" = 'N'::text)) THEN 'CUBA'::text
+              WHEN ((a."DUTY CITY" = 'LIMA'::text) AND (a."CONUS" = 'N'::text)) THEN 'PERU'::text
+              WHEN ((a."DUTY CITY" = 'CHARLOTTE AMALIE'::text) AND (a."CONUS" = 'N'::text)) THEN 'VIRGIN ISLANDS, U.S.'::text
+              WHEN ((a."DUTY CITY" = 'JAKARTA, JAVA'::text) AND (a."CONUS" = 'N'::text)) THEN 'INDONESIA'::text
+              WHEN ((a."DUTY CITY" = 'CALGARY, ALBERTA'::text) AND (a."CONUS" = 'N'::text)) THEN 'CANADA'::text
+              WHEN ((a."DUTY CITY" = 'THE HAGUE'::text) AND (a."CONUS" = 'N'::text)) THEN 'NETHERLANDS'::text
+              WHEN ((a."DUTY CITY" = 'PANAMA'::text) AND (a."CONUS" = 'N'::text)) THEN 'PANAMA'::text
+              WHEN ((a."DUTY CITY" = 'HONG KONG'::text) AND (a."CONUS" = 'N'::text)) THEN 'HONG KONG'::text
+              WHEN ((a."DUTY CITY" = 'BEIJING'::text) AND (a."CONUS" = 'N'::text)) THEN 'CHINA'::text
+              WHEN ((a."DUTY CITY" = 'MADRID'::text) AND (a."CONUS" = 'N'::text)) THEN 'SPAIN'::text
+              WHEN ((a."DUTY CITY" = 'DAKAR'::text) AND (a."CONUS" = 'N'::text)) THEN 'SENEGAL'::text
+              ELSE 'United States'::text
+          END AS cxo_country
+     FROM public.cxo_nfc_tops_archive_v4 a
+    WHERE (a."PML on board" = 'Y'::text)
+    ORDER BY a.cxo_pp1;
 ;
 
 CREATE VIEW "public"."vcxo_retirement" AS
@@ -5570,7 +6710,66 @@ CREATE VIEW "public"."vcxo_rno" AS
 ;
 
 CREATE VIEW "public"."vcxo_t2h" AS
-  
+   SELECT cxo_t2h_archive."PAY PERIOD",
+      cxo_t2h_archive."GAIN/LOSS",
+      cxo_t2h_archive."OFC",
+      cxo_t2h_archive."BUD",
+      cxo_t2h_archive."ORG",
+      cxo_t2h_archive."ORG TEXT",
+      cxo_t2h_archive."NAME",
+      cxo_t2h_archive."GRADE",
+      cxo_t2h_archive."CAT CD",
+      cxo_t2h_archive."SERIES",
+      cxo_t2h_archive."TITLE",
+      cxo_t2h_archive."TITLE GROUP",
+      cxo_t2h_archive."INCMB EOD DT",
+      cxo_t2h_archive."LEO",
+      cxo_t2h_archive."DIR",
+      cxo_t2h_archive."Touch Point",
+      cxo_t2h_archive."SF-52 Number",
+      cxo_t2h_archive."Need Validated",
+      cxo_t2h_archive."SF-52 Date",
+      cxo_t2h_archive."Days",
+      cxo_t2h_archive."SF-52 Received Date",
+      cxo_t2h_archive."PD Reviewed",
+      cxo_t2h_archive."Days.1",
+      cxo_t2h_archive."PD Reviewed.1",
+      cxo_t2h_archive."Job Analysis End Date",
+      cxo_t2h_archive."Days.2",
+      cxo_t2h_archive."Job ANAlysis End Date",
+      cxo_t2h_archive."Anncmt Open Date",
+      cxo_t2h_archive."Days.3",
+      cxo_t2h_archive."Anncmt Open Date.1",
+      cxo_t2h_archive."Anncmt Closed Date",
+      cxo_t2h_archive."Days.4",
+      cxo_t2h_archive."Anncmt Closed Date.1",
+      cxo_t2h_archive."Days.5",
+      cxo_t2h_archive."Evaluate Applications",
+      cxo_t2h_archive."Evaluate Applications.1",
+      cxo_t2h_archive."Days.6",
+      cxo_t2h_archive."Certifiate Issued Date",
+      cxo_t2h_archive."Days.7",
+      cxo_t2h_archive."Certifiate Issued Date.1",
+      cxo_t2h_archive."Cert Returned Date",
+      cxo_t2h_archive."Days.8",
+      cxo_t2h_archive."Cert Returned Date.1",
+      cxo_t2h_archive."Tentative Job Offer Date",
+      cxo_t2h_archive."Days.9",
+      cxo_t2h_archive."Tentative Job Offer Date.1",
+      cxo_t2h_archive."PSU Inquiry",
+      cxo_t2h_archive."Days.10",
+      cxo_t2h_archive."Final PSU",
+      cxo_t2h_archive."Official Offer Date",
+      cxo_t2h_archive."Days.11",
+      cxo_t2h_archive."Official Offer Date.1",
+      cxo_t2h_archive."EOD DT",
+      cxo_t2h_archive."T2H",
+      cxo_t2h_archive."EOD-TJO",
+      cxo_t2h_archive."EOD-OJO",
+      cxo_t2h_archive."T2h Need to TJO",
+      cxo_t2h_archive.filename,
+      cxo_t2h_archive.ingested_at
+     FROM public.cxo_t2h_archive;
 ;
 
 CREATE VIEW "public"."vcxo_vet" AS
@@ -6198,7 +7397,1300 @@ CREATE VIEW "public"."vcxo_vet" AS
 ;
 
 CREATE VIEW "public"."vcxo_noa" AS
-  
+   SELECT a."PrsnID",
+      a."Last Name",
+      a."First Name",
+      a."Middle Name",
+      a."Sex Cd",
+      a."Rno Cd",
+      a."Longtitle",
+      a."Dept Cd",
+      a."Org",
+      a."Pay Plan",
+      a."Grade",
+      a."Step",
+      a."Series",
+      a."Pos Off Ttl",
+      a."Type Apnt",
+      a."Type Emp",
+      a."Mr No",
+      a."Pos No",
+      a."Dty Hrs",
+      a."Duty",
+      a."Bus",
+      a."Pos Spvs Cd",
+      a."Leo Ind",
+      a."Off Ttl Cd",
+      a."Vet Pref Rif",
+      a."Vet Pref Cd",
+      a."Emp Status",
+      a."Salary Rt",
+      a."NOA Cd",
+      a."NOA Description",
+      a."Csc Auth 12",
+      a."Csc Auth 22",
+      a."NOA Dt",
+      a."Apnt Na Actn",
+      a."Apnt Auth 1",
+      a."Apnt Auth 2",
+      a."Apnt Ymd",
+      a."Pp Nbr",
+      a."Pp Ymd",
+      a."Lt 063 Ida",
+      a."Valid Ymd",
+      a."BirthDt",
+      a."Agcy Eod",
+      a."NTE",
+      a."Apnt Cd",
+      a."Ga Lo N Usda",
+      a."Geo Adj Pct",
+      a."Actn Cd",
+      a."Poi",
+      a."Prog Cd",
+      a."Award Amount",
+      a.filename,
+      a.cxo_pp1,
+      a.cxo_fy,
+      a.ingested_at,
+          CASE
+              WHEN ("left"(a."Org", 8) = '70040002'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '70040003'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '70080001'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '18620500'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '70050002'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '18610200'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '23030000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70010003'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '07100700'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18630200'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07100050'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '07102400'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70030002'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '18630400'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18630500'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '24403001'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70040004'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '18630700'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '22120013'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18620200'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18630100'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '05010000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18620300'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '06171000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '24200000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '18060400'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07101400'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18610500'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07101900'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70060002'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '07100200'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70080002'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '21000000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '06098000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '18620400'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '23030600'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '18000200'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18000300'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '24301000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '22100020'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18620700'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07102000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70090001'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '70020002'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '18620100'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '22120012'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '22100019'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '22110010'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18620800'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18060100'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18610100'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18620600'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07102200'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18060700'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '06000000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '18630600'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18630300'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '70060001'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '23040300'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23020100'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70010001'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '24203000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '18060300'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18060600'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07100060'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70030003'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '70010002'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '70020001'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '18610300'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07100070'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18610900'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18610600'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18610800'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '05030200'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '05030400'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '06090100'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '22120010'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '23020500'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '18610700'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07102300'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70020000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '07100500'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '06051000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70050000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '06091000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '18610400'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07101300'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '07101000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '05050300'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '22100021'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18000100'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '23030200'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '07102500'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70080000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '23050100'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23020400'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23020200'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '24403000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '05040100'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '05060000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '23030100'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '24302000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '06052000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '05040000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '07101800'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '07100800'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '06050000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '06020000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '07100600'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18500300'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '21400000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '22120000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '07100001'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18060200'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '07102600'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '07100100'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '07102100'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '21500000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '07101700'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '23040100'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23020600'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '07100900'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '23010000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23020300'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70000000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '70030001'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '21600000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70010000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '22100022'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '24300000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '05020000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70040001'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '70070001'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '06090000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '07101600'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '22140010'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '05050200'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '18060800'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '22110011'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '07100300'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '06098100'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '07100400'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '07101200'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '24402000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '18060000'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '18000000'::text) THEN 'ERO'::text
+              WHEN ("left"(a."Org", 8) = '06030000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '24100000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '24000000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '06170000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '06098200'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70050001'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '24400000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23050300'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23050200'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '21900000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '07101100'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '24401000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '21501000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '21200000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '07100040'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '22100017'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '06093000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '24201000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23030300'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '05050000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '05030000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '06095000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23030500'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '06096000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '22110013'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '06097000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '06220000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '22100016'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '23020000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23050000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23030400'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23000000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '05050100'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '21310000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '23020700'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70090000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '22000000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70060000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '06098300'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '06094000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '06050100'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '22100015'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '05080000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '05030300'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '05030100'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '23040200'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '22100000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '05000000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '70030000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '06092000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '05040200'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '22110012'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '21601000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '24202000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70040000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '24205000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '24204000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '22110000'::text) THEN 'DIR'::text
+              WHEN ("left"(a."Org", 8) = '21100000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '21602000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '70070000'::text) THEN 'HSI'::text
+              WHEN ("left"(a."Org", 8) = '23040000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '21800000'::text) THEN 'MGT'::text
+              WHEN ("left"(a."Org", 8) = '21320000'::text) THEN 'MGT'::text
+              ELSE NULL::text
+          END AS cxo_dir,
+          CASE
+              WHEN ("left"(a."Org", 8) = '70040002'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '70040003'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '70080001'::text) THEN 'ITL'::text
+              WHEN ("left"(a."Org", 8) = '18620500'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '70050002'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '18610200'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '23030000'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '70010003'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '07100700'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '18630200'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07100050'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '07102400'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '70030002'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '18630400'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18630500'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '24403001'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '70040004'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '18630700'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '22120013'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '18620200'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18630100'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '05010000'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '18620300'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '06171000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '24200000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '18060400'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07101400'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '18610500'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07101900'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '70060002'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '07100200'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '70080002'::text) THEN 'ITL'::text
+              WHEN ("left"(a."Org", 8) = '21000000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '06098000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '18620400'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '23030600'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '18000200'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18000300'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '24301000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '22100020'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '18620700'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07102000'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '70090001'::text) THEN 'IAF'::text
+              WHEN ("left"(a."Org", 8) = '70020002'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '18620100'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '22120012'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '22100019'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '22110010'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '18620800'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18060100'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18610100'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18620600'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07102200'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '18060700'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '06000000'::text) THEN 'MAA'::text
+              WHEN ("left"(a."Org", 8) = '18630600'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18630300'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '70060001'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '23040300'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '23020100'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '70010001'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '24203000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '18060300'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18060600'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07100060'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '70030003'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '70010002'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '70020001'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '18610300'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07100070'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '18610900'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18610600'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18610800'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '05030200'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '05030400'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '06090100'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '22120010'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '23020500'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '18610700'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07102300'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '70020000'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '07100500'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '06051000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '70050000'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '06091000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '18610400'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07101300'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '07101000'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '05050300'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '22100021'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '18000100'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '23030200'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '07102500'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '70080000'::text) THEN 'ITL'::text
+              WHEN ("left"(a."Org", 8) = '23050100'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '23020400'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '23020200'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '24403000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '05040100'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '05060000'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '23030100'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '24302000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '06052000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '05040000'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '07101800'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '07100800'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '06050000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '06020000'::text) THEN 'MAA'::text
+              WHEN ("left"(a."Org", 8) = '07100600'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '18500300'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '21400000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '22120000'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '07100001'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '18060200'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '07102600'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '07100100'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '07102100'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '21500000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '07101700'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '23040100'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '23020600'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '07100900'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '23010000'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '23020300'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '70000000'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '70030001'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '21600000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '70010000'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '22100022'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '24300000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '05020000'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '70040001'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '70070001'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '06090000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '07101600'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '22140010'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '05050200'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '18060800'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '22110011'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '07100300'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '06098100'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '07100400'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '07101200'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '24402000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '18060000'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '18000000'::text) THEN 'DRO'::text
+              WHEN ("left"(a."Org", 8) = '06030000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '24100000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '24000000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '06170000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '06098200'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '70050001'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '24400000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '23050300'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '23050200'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '21900000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '07101100'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '24401000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '21501000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '21200000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '07100040'::text) THEN 'PLA'::text
+              WHEN ("left"(a."Org", 8) = '22100017'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '06093000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '24201000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '23030300'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '05050000'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '05030000'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '06095000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '23030500'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '06096000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '22110013'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '06097000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '06220000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '22100016'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '23020000'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '23050000'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '23030400'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '23000000'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '05050100'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '21310000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '23020700'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '70090000'::text) THEN 'IAF'::text
+              WHEN ("left"(a."Org", 8) = '22000000'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '70060000'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '06098300'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '06094000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '06050100'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '22100015'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '05080000'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '05030300'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '05030100'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '23040200'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '22100000'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '05000000'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '70030000'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '06092000'::text) THEN 'OAS'::text
+              WHEN ("left"(a."Org", 8) = '05040200'::text) THEN 'OOD'::text
+              WHEN ("left"(a."Org", 8) = '22110012'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '21601000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '24202000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '70040000'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '24205000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '24204000'::text) THEN 'CFO'::text
+              WHEN ("left"(a."Org", 8) = '22110000'::text) THEN 'OPR'::text
+              WHEN ("left"(a."Org", 8) = '21100000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '21602000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '70070000'::text) THEN 'INV'::text
+              WHEN ("left"(a."Org", 8) = '23040000'::text) THEN 'CIO'::text
+              WHEN ("left"(a."Org", 8) = '21800000'::text) THEN 'OAQ'::text
+              WHEN ("left"(a."Org", 8) = '21320000'::text) THEN 'OAQ'::text
+              ELSE NULL::text
+          END AS cxo_office,
+          CASE
+              WHEN ("left"(a."Org", 8) = '70040002'::text) THEN 'SAC DENVER, CO'::text
+              WHEN ("left"(a."Org", 8) = '70040003'::text) THEN 'ASAC-SELLS, AZ'::text
+              WHEN ("left"(a."Org", 8) = '70080001'::text) THEN 'DIV 1 UNIT 4 HUMAN SMUG & TRAF'::text
+              WHEN ("left"(a."Org", 8) = '18620500'::text) THEN 'DRO HOU HOUSTON TX CDF'::text
+              WHEN ("left"(a."Org", 8) = '70050002'::text) THEN 'UNIT 2 EXPRT EFMNT CORD CTR'::text
+              WHEN ("left"(a."Org", 8) = '18610200'::text) THEN 'DRO BAL SALISBURY MD SUBOFFICE'::text
+              WHEN ("left"(a."Org", 8) = '23030000'::text) THEN 'IT OPERATIONS DIVISION'::text
+              WHEN ("left"(a."Org", 8) = '70010003'::text) THEN 'DIV 1 UNIT 3 VTM AST & MGM OS'::text
+              WHEN ("left"(a."Org", 8) = '07100700'::text) THEN 'OPLA CHICAGO (KANSAS CITY)'::text
+              WHEN ("left"(a."Org", 8) = '18630200'::text) THEN 'DRO LOS REMOVAL MGT BR'::text
+              WHEN ("left"(a."Org", 8) = '07100050'::text) THEN 'OPLA NATL SECURITY LAW UNIT'::text
+              WHEN ("left"(a."Org", 8) = '07102400'::text) THEN 'OPLA SAN FRANCISCO'::text
+              WHEN ("left"(a."Org", 8) = '70030002'::text) THEN 'UNIT 2 DATA MGMT REPORTG'::text
+              WHEN ("left"(a."Org", 8) = '18630400'::text) THEN 'DRO SND DETENTN MGT BR'::text
+              WHEN ("left"(a."Org", 8) = '18630500'::text) THEN 'DRO SFO HONOLULU DET MGT BR'::text
+              WHEN ("left"(a."Org", 8) = '24403001'::text) THEN 'TRAVEL & BANK CARD SERVICES'::text
+              WHEN ("left"(a."Org", 8) = '70040004'::text) THEN 'RAC-FREDERICK, MD'::text
+              WHEN ("left"(a."Org", 8) = '18630700'::text) THEN 'DRO SLC LAS VEGAS DET MGT BR'::text
+              WHEN ("left"(a."Org", 8) = '22120013'::text) THEN 'SMO, SPECIAL SECURITY'::text
+              WHEN ("left"(a."Org", 8) = '18620200'::text) THEN 'DRO FIELD OFC DALLAS'::text
+              WHEN ("left"(a."Org", 8) = '18630100'::text) THEN 'DRO DEN CHEYENNE WY DTY POST'::text
+              WHEN ("left"(a."Org", 8) = '05010000'::text) THEN 'OD EXECUTIVE SECRETARIAT'::text
+              WHEN ("left"(a."Org", 8) = '18620300'::text) THEN 'DRO DET CLEVELAND SUBOFFICE'::text
+              WHEN ("left"(a."Org", 8) = '06171000'::text) THEN 'FREEDOM OF INFORMATION BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '24200000'::text) THEN 'OFC OF BUDGET & PROG PERFORMNC'::text
+              WHEN ("left"(a."Org", 8) = '18060400'::text) THEN 'DRO LAW ENF SUPP CTR'::text
+              WHEN ("left"(a."Org", 8) = '07101400'::text) THEN 'OPLA LOS ANGELES'::text
+              WHEN ("left"(a."Org", 8) = '18610500'::text) THEN 'DRO MIA ORLANDO FL'::text
+              WHEN ("left"(a."Org", 8) = '07101900'::text) THEN 'OPLA SEATTLE (TACOMA)'::text
+              WHEN ("left"(a."Org", 8) = '70060002'::text) THEN 'DIV 1 UNIT 3 INFORM DISCLOSURE'::text
+              WHEN ("left"(a."Org", 8) = '07100200'::text) THEN 'OPLA NEW YORK CITY'::text
+              WHEN ("left"(a."Org", 8) = '70080002'::text) THEN 'DIV 2 UNIT 1 MISSION MGMT'::text
+              WHEN ("left"(a."Org", 8) = '21000000'::text) THEN 'OFC OF ACQUISITION MANAGEMENT'::text
+              WHEN ("left"(a."Org", 8) = '06098000'::text) THEN 'OHC STRATGIC REC & RETN UNIT'::text
+              WHEN ("left"(a."Org", 8) = '18620400'::text) THEN 'DRO ELP EL PASO TX SPC'::text
+              WHEN ("left"(a."Org", 8) = '23030600'::text) THEN 'IT FIELD OPERATIONS BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '18000200'::text) THEN 'DRO EXEC INFO UNIT'::text
+              WHEN ("left"(a."Org", 8) = '18000300'::text) THEN 'DRO STRATEGIC INITIATIVES UNIT'::text
+              WHEN ("left"(a."Org", 8) = '24301000'::text) THEN 'PROPERTY MANAGEMENT BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '22100020'::text) THEN 'RAC PLANTATION 2'::text
+              WHEN ("left"(a."Org", 8) = '18620700'::text) THEN 'DRO SNA REMOVAL MGT BR'::text
+              WHEN ("left"(a."Org", 8) = '07102000'::text) THEN 'OPLA HOUSTON'::text
+              WHEN ("left"(a."Org", 8) = '70090001'::text) THEN 'DIV 1 UNIT 2 MIDDLE EAST-ASIA'::text
+              WHEN ("left"(a."Org", 8) = '70020002'::text) THEN 'DIV 1 UNIT 1 FIELD REP FRU'::text
+              WHEN ("left"(a."Org", 8) = '18620100'::text) THEN 'DRO FIELD OFC CHICAGO'::text
+              WHEN ("left"(a."Org", 8) = '22120012'::text) THEN 'PSO FIELD OPS EASTERN REGION'::text
+              WHEN ("left"(a."Org", 8) = '22100019'::text) THEN 'INTEGRITY PGMS SECTION'::text
+              WHEN ("left"(a."Org", 8) = '22110010'::text) THEN 'ODO, SECTION 1'::text
+              WHEN ("left"(a."Org", 8) = '18620800'::text) THEN 'DRO SPM OMAHA GRAND ISLND QRT'::text
+              WHEN ("left"(a."Org", 8) = '18060100'::text) THEN 'DRO OPS INCIDENT & SPEC RESP'::text
+              WHEN ("left"(a."Org", 8) = '18610100'::text) THEN 'DRO ATL DETENTN MGT BR'::text
+              WHEN ("left"(a."Org", 8) = '18620600'::text) THEN 'DRO NOL JACKSON MS'::text
+              WHEN ("left"(a."Org", 8) = '07102200'::text) THEN 'OPLA SAN DIEGO'::text
+              WHEN ("left"(a."Org", 8) = '18060700'::text) THEN 'DRO AD REMOVAL'::text
+              WHEN ("left"(a."Org", 8) = '06000000'::text) THEN 'MGMT & ADMIN EXEC ASSOC DIR'::text
+              WHEN ("left"(a."Org", 8) = '18630600'::text) THEN 'DRO SEA PORTLAND OR SUBOFC'::text
+              WHEN ("left"(a."Org", 8) = '18630300'::text) THEN 'DRO FPH PHO INSTITUT REMV PROG'::text
+              WHEN ("left"(a."Org", 8) = '70060001'::text) THEN 'DIV 1 UNIT 4 ITRN RSRC FIN MGT'::text
+              WHEN ("left"(a."Org", 8) = '23040300'::text) THEN 'INTEG SEC OPS CENTER BR'::text
+              WHEN ("left"(a."Org", 8) = '23020100'::text) THEN 'HSI PORTF DEL BR'::text
+              WHEN ("left"(a."Org", 8) = '70010001'::text) THEN 'UNIT 4 BULK CASH SMUGLNG'::text
+              WHEN ("left"(a."Org", 8) = '24203000'::text) THEN 'OPERATN & MISSION SUPT BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '18060300'::text) THEN 'DRO ALT TO DETN UNIT'::text
+              WHEN ("left"(a."Org", 8) = '18060600'::text) THEN 'DRO DAD CLINICAL SVCS DIVISION'::text
+              WHEN ("left"(a."Org", 8) = '07100060'::text) THEN 'OPLA EXEC COMMUNICATIONS UNIT'::text
+              WHEN ("left"(a."Org", 8) = '70030003'::text) THEN 'UNIT 2 TITLE 3 LINGUISTICS'::text
+              WHEN ("left"(a."Org", 8) = '70010002'::text) THEN 'UNIT 1 NTC-1'::text
+              WHEN ("left"(a."Org", 8) = '70020001'::text) THEN 'UNIT 3 CTR TRSM CRIM EXPLTN'::text
+              WHEN ("left"(a."Org", 8) = '18610300'::text) THEN 'DRO BOS FUGITIVE OPS'::text
+              WHEN ("left"(a."Org", 8) = '07100070'::text) THEN 'OPLA ETHICS UNIT'::text
+              WHEN ("left"(a."Org", 8) = '18610900'::text) THEN 'DRO PHILADELPHIA YORK CO PA'::text
+              WHEN ("left"(a."Org", 8) = '18610600'::text) THEN 'DRO NEW REMOVAL MGT BR'::text
+              WHEN ("left"(a."Org", 8) = '18610800'::text) THEN 'DRO WAS NORFOLK VA DUTY POST'::text
+              WHEN ("left"(a."Org", 8) = '05030200'::text) THEN 'DIGITAL MARKETING & OUTREACH'::text
+              WHEN ("left"(a."Org", 8) = '05030400'::text) THEN 'CENTRAL REGION'::text
+              WHEN ("left"(a."Org", 8) = '06090100'::text) THEN 'HUMAN RESOURCES OPRTNS CNTR'::text
+              WHEN ("left"(a."Org", 8) = '22120010'::text) THEN 'PSU EOD'::text
+              WHEN ("left"(a."Org", 8) = '23020500'::text) THEN 'M&A PORTF DEL BR'::text
+              WHEN ("left"(a."Org", 8) = '18610700'::text) THEN 'DRO NYC VARICK NY'::text
+              WHEN ("left"(a."Org", 8) = '07102300'::text) THEN 'OPLA MIAMI'::text
+              WHEN ("left"(a."Org", 8) = '70020000'::text) THEN 'ASST DIR NATIONAL SECURTY INV'::text
+              WHEN ("left"(a."Org", 8) = '07100500'::text) THEN 'OPLA BOSTON'::text
+              WHEN ("left"(a."Org", 8) = '06051000'::text) THEN 'OLCD TRN & PERFORMANCE SUPPORT'::text
+              WHEN ("left"(a."Org", 8) = '70050000'::text) THEN 'ASST DIR GLOBL TRADE INV IPRCC'::text
+              WHEN ("left"(a."Org", 8) = '06091000'::text) THEN 'OHC LABOR RELATIONS BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '18610400'::text) THEN 'DRO FIELD OFC BUFFALO'::text
+              WHEN ("left"(a."Org", 8) = '07101300'::text) THEN 'OPLA DALLAS'::text
+              WHEN ("left"(a."Org", 8) = '07101000'::text) THEN 'OPLA DENVER'::text
+              WHEN ("left"(a."Org", 8) = '05050300'::text) THEN 'OFTP TACTICAL OPS FT BENNING'::text
+              WHEN ("left"(a."Org", 8) = '22100021'::text) THEN 'SAC CENTRAL'::text
+              WHEN ("left"(a."Org", 8) = '18000100'::text) THEN 'DRO ADMIN INQUIRY UNIT'::text
+              WHEN ("left"(a."Org", 8) = '23030200'::text) THEN 'CUSTOMER SUPPORT BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '07102500'::text) THEN 'OPLA NEWARK'::text
+              WHEN ("left"(a."Org", 8) = '70080000'::text) THEN 'ASST DIR INTELLIGENCE'::text
+              WHEN ("left"(a."Org", 8) = '23050100'::text) THEN 'WORKFORCE MANAGEMENT BR'::text
+              WHEN ("left"(a."Org", 8) = '23020400'::text) THEN 'ENT PLTFRM SERV BR'::text
+              WHEN ("left"(a."Org", 8) = '23020200'::text) THEN 'ERO PORTF DEL BR'::text
+              WHEN ("left"(a."Org", 8) = '24403000'::text) THEN 'DEBT COLLECTION & MANAGEMENT'::text
+              WHEN ("left"(a."Org", 8) = '05040100'::text) THEN 'DIVERSITY MANAGEMENT DIVISION'::text
+              WHEN ("left"(a."Org", 8) = '05060000'::text) THEN 'OFC OF PARTNRSHP ENGAGMNT'::text
+              WHEN ("left"(a."Org", 8) = '23030100'::text) THEN 'TACTICAL COMM BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '24302000'::text) THEN 'CONSTRUCTION & SUSTAINABILITY'::text
+              WHEN ("left"(a."Org", 8) = '06052000'::text) THEN 'OLCD LEADERSHIP DEV (DALLAS)'::text
+              WHEN ("left"(a."Org", 8) = '05040000'::text) THEN 'OFC OF DIVERSTY & CIVIL RIGHTS'::text
+              WHEN ("left"(a."Org", 8) = '07101800'::text) THEN 'OPLA NEW ORLEANS'::text
+              WHEN ("left"(a."Org", 8) = '07100800'::text) THEN 'OPLA ORLANDO'::text
+              WHEN ("left"(a."Org", 8) = '06050000'::text) THEN 'OLCD HQ'::text
+              WHEN ("left"(a."Org", 8) = '06020000'::text) THEN 'STRATEGC RESOURCE ALIGNMNT DIV'::text
+              WHEN ("left"(a."Org", 8) = '07100600'::text) THEN 'OPLA BALTIMORE'::text
+              WHEN ("left"(a."Org", 8) = '18500300'::text) THEN 'ERO ADV/SPECL TRNG(CHARLESTON)'::text
+              WHEN ("left"(a."Org", 8) = '21400000'::text) THEN 'OAQ MISSION SUPPORT BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '22120000'::text) THEN 'SECURITY'::text
+              WHEN ("left"(a."Org", 8) = '07100001'::text) THEN 'OPLA EXECUTIVE OFFICE'::text
+              WHEN ("left"(a."Org", 8) = '18060200'::text) THEN 'DRO OSD ASSET MGMT UNIT'::text
+              WHEN ("left"(a."Org", 8) = '07102600'::text) THEN 'OPLA MINNPLS/ST PAUL (OMAHA)'::text
+              WHEN ("left"(a."Org", 8) = '07100100'::text) THEN 'OPLA WASHINGTON, D.C.'::text
+              WHEN ("left"(a."Org", 8) = '07102100'::text) THEN 'OPLA PHOENIX (FLORENCE)'::text
+              WHEN ("left"(a."Org", 8) = '21500000'::text) THEN 'OAQ INVESTIGTNS & MSN SPT'::text
+              WHEN ("left"(a."Org", 8) = '07101700'::text) THEN 'OPLA EL PASO'::text
+              WHEN ("left"(a."Org", 8) = '23040100'::text) THEN 'GOVERNANCE & RISK MGMT BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '23020600'::text) THEN 'OD-OPLA PORTF DEL BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '07100900'::text) THEN 'OPLA BUFFALO (BATAVIA)'::text
+              WHEN ("left"(a."Org", 8) = '23010000'::text) THEN 'SOLUTIONS ENGINEERING DIVISION'::text
+              WHEN ("left"(a."Org", 8) = '23020300'::text) THEN 'M&A, OD-OPLA PORT BR'::text
+              WHEN ("left"(a."Org", 8) = '70000000'::text) THEN 'HOMELAND SECURTY INVESTIGATNS'::text
+              WHEN ("left"(a."Org", 8) = '70030001'::text) THEN 'UNIT 1 CYBER CRIMES CTR'::text
+              WHEN ("left"(a."Org", 8) = '21600000'::text) THEN 'OAQ DETENTION MANAGEMENT BR'::text
+              WHEN ("left"(a."Org", 8) = '70010000'::text) THEN 'ASST DIR HSI INV PGMS'::text
+              WHEN ("left"(a."Org", 8) = '22100022'::text) THEN 'RAC PHOENIX'::text
+              WHEN ("left"(a."Org", 8) = '24300000'::text) THEN 'OFC OF ASSET & FACILITIES MGMT'::text
+              WHEN ("left"(a."Org", 8) = '05020000'::text) THEN 'OFC OF CONGRESSIONAL RELATIONS'::text
+              WHEN ("left"(a."Org", 8) = '70040001'::text) THEN 'UNIT 3 OPERTNS SOUTHWEST'::text
+              WHEN ("left"(a."Org", 8) = '70070001'::text) THEN 'UNIT 2 OPERATIONS'::text
+              WHEN ("left"(a."Org", 8) = '06090000'::text) THEN 'OHC CHIEF HUMAN CAPITAL OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '07101600'::text) THEN 'OPLA SAN ANTONIO (PORT ISABEL)'::text
+              WHEN ("left"(a."Org", 8) = '22140010'::text) THEN 'MISSION SUPPORT'::text
+              WHEN ("left"(a."Org", 8) = '05050200'::text) THEN 'ARMORY OPERATIONS, ALTOONA, PA'::text
+              WHEN ("left"(a."Org", 8) = '18060800'::text) THEN 'DRO AD LAW ENF SYSTEMS'::text
+              WHEN ("left"(a."Org", 8) = '22110011'::text) THEN 'MANAGEMENT INSPECTIONS UNIT'::text
+              WHEN ("left"(a."Org", 8) = '07100300'::text) THEN 'OPLA PHILADELPHIA'::text
+              WHEN ("left"(a."Org", 8) = '06098100'::text) THEN 'OHC BUSINESS MGMT UNIT'::text
+              WHEN ("left"(a."Org", 8) = '07100400'::text) THEN 'OPLA ATLANTA'::text
+              WHEN ("left"(a."Org", 8) = '07101200'::text) THEN 'OPLA HONOLULU'::text
+              WHEN ("left"(a."Org", 8) = '24402000'::text) THEN 'FINANCIAL BUSINESS INTEGRATN'::text
+              WHEN ("left"(a."Org", 8) = '18060000'::text) THEN 'DRO DEPUTY DIRECTOR'::text
+              WHEN ("left"(a."Org", 8) = '18000000'::text) THEN 'DRO DIRECTOR'::text
+              WHEN ("left"(a."Org", 8) = '06030000'::text) THEN 'OAS OFFICE OF POLICY'::text
+              WHEN ("left"(a."Org", 8) = '24100000'::text) THEN 'OFC OF ASSURANCE & COMPLIANCE'::text
+              WHEN ("left"(a."Org", 8) = '24000000'::text) THEN 'CHIEF FINANCIAL OFFICER'::text
+              WHEN ("left"(a."Org", 8) = '06170000'::text) THEN 'INFO GOVERNANCE & PRIVACY'::text
+              WHEN ("left"(a."Org", 8) = '06098200'::text) THEN 'OHC INTERNAL CONTROLS UNIT'::text
+              WHEN ("left"(a."Org", 8) = '70050001'::text) THEN 'NATL INTLCL PROP RGHTS CTR DIV'::text
+              WHEN ("left"(a."Org", 8) = '24400000'::text) THEN 'OFC OF FINANCIAL MANAGEMENT'::text
+              WHEN ("left"(a."Org", 8) = '23050300'::text) THEN 'ACQ & INVENTORY MGMT BR'::text
+              WHEN ("left"(a."Org", 8) = '23050200'::text) THEN 'FINANCIAL MGMT BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '21900000'::text) THEN 'OAQ MISSION SUPPORT ORLANDO'::text
+              WHEN ("left"(a."Org", 8) = '07101100'::text) THEN 'OPLA DETROIT'::text
+              WHEN ("left"(a."Org", 8) = '24401000'::text) THEN 'FINANCIAL RPTG & ACCNTABILITY'::text
+              WHEN ("left"(a."Org", 8) = '21501000'::text) THEN 'OAQ PURCHASE CARD'::text
+              WHEN ("left"(a."Org", 8) = '21200000'::text) THEN 'OAQ INFO TECHNOLOGY SRVCS BR'::text
+              WHEN ("left"(a."Org", 8) = '07100040'::text) THEN 'OPLA FIELD LEGAL OPS'::text
+              WHEN ("left"(a."Org", 8) = '22100017'::text) THEN 'OPERATIONAL SUPPORT'::text
+              WHEN ("left"(a."Org", 8) = '06093000'::text) THEN 'OHC MEDICAL AFFAIRS UNIT'::text
+              WHEN ("left"(a."Org", 8) = '24201000'::text) THEN 'FORMULATION BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '23030300'::text) THEN 'NETWORK & INFRA BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '05050000'::text) THEN 'OFC OF FIREARMS & TACTICAL PRG'::text
+              WHEN ("left"(a."Org", 8) = '05030000'::text) THEN 'OFFICE OF PUBLIC AFFAIRS'::text
+              WHEN ("left"(a."Org", 8) = '06095000'::text) THEN 'OHC EMPL RESILIENCE UNIT'::text
+              WHEN ("left"(a."Org", 8) = '23030500'::text) THEN 'ENTERPRISE SERVICES BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '06096000'::text) THEN 'OHC STRATEGIC INITIATIVES'::text
+              WHEN ("left"(a."Org", 8) = '22110013'::text) THEN 'OPR, IDO, ERAU'::text
+              WHEN ("left"(a."Org", 8) = '06097000'::text) THEN 'OHC HRIT UNIT'::text
+              WHEN ("left"(a."Org", 8) = '06220000'::text) THEN 'OFC OF INVEST & PRG ACCNTABLTY'::text
+              WHEN ("left"(a."Org", 8) = '22100016'::text) THEN 'JOINT INTAKE CENTER'::text
+              WHEN ("left"(a."Org", 8) = '23020000'::text) THEN 'SOLUTIONS DELIVERY DIVISION'::text
+              WHEN ("left"(a."Org", 8) = '23050000'::text) THEN 'RESOURCE MGMT DIV'::text
+              WHEN ("left"(a."Org", 8) = '23030400'::text) THEN 'APPLICATION SERVICES BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '23000000'::text) THEN 'CHIEF INFORMATION OFFICER'::text
+              WHEN ("left"(a."Org", 8) = '05050100'::text) THEN 'OFTP POLICY & PROGRAMS BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '21310000'::text) THEN 'OAQ BUSINESS OPERATIONS DIV'::text
+              WHEN ("left"(a."Org", 8) = '23020700'::text) THEN 'IT INFRASTRUCTURE BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '70090000'::text) THEN 'ASST DIR INTERNATL OPERATNS'::text
+              WHEN ("left"(a."Org", 8) = '22000000'::text) THEN 'OPR, DIRECTOR'::text
+              WHEN ("left"(a."Org", 8) = '70060000'::text) THEN 'ASST DIR MISSION SUPPORT'::text
+              WHEN ("left"(a."Org", 8) = '06098300'::text) THEN 'OHC PAYROLL UNIT'::text
+              WHEN ("left"(a."Org", 8) = '06094000'::text) THEN 'OHC EXECUTIVE SERVICES UNIT'::text
+              WHEN ("left"(a."Org", 8) = '06050100'::text) THEN 'OLCD MISSION SUPPORT'::text
+              WHEN ("left"(a."Org", 8) = '22100015'::text) THEN 'SPECIAL INVESTIGATIONS'::text
+              WHEN ("left"(a."Org", 8) = '05080000'::text) THEN 'OFC OF IMMIGRATION PROG EVALTN'::text
+              WHEN ("left"(a."Org", 8) = '05030300'::text) THEN 'INTERNAL COMMUNICATION DIV'::text
+              WHEN ("left"(a."Org", 8) = '05030100'::text) THEN 'MISSION SUPPORT DIV'::text
+              WHEN ("left"(a."Org", 8) = '23040200'::text) THEN 'SECURITY ASSURANCE BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '22100000'::text) THEN 'OPR, INVESTIGATIONS'::text
+              WHEN ("left"(a."Org", 8) = '05000000'::text) THEN 'OFFICE OF THE DIRECTOR'::text
+              WHEN ("left"(a."Org", 8) = '70030000'::text) THEN 'ASST DIR OPRTNL TECHNLY & CYBR'::text
+              WHEN ("left"(a."Org", 8) = '06092000'::text) THEN 'OHC POLICY UNIT'::text
+              WHEN ("left"(a."Org", 8) = '05040200'::text) THEN 'COMPLAINTS & RESOLUTION DIV'::text
+              WHEN ("left"(a."Org", 8) = '22110012'::text) THEN 'HQ, 287(G) PROGRAM'::text
+              WHEN ("left"(a."Org", 8) = '21601000'::text) THEN 'OAQ DETENTION CONTRACTS LAGUNA'::text
+              WHEN ("left"(a."Org", 8) = '24202000'::text) THEN 'EXECUTION BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '70040000'::text) THEN 'ASST DIR DOMESTIC OPERATIONS'::text
+              WHEN ("left"(a."Org", 8) = '24205000'::text) THEN 'PAYROLL & POSITION MGMT BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '24204000'::text) THEN 'PROG ANALYSIS & EVALUATION BR'::text
+              WHEN ("left"(a."Org", 8) = '22110000'::text) THEN 'INSPS & DET OVERSIGHT'::text
+              WHEN ("left"(a."Org", 8) = '21100000'::text) THEN 'OAQ ACQIS PLCY & STRATGC SRCNG'::text
+              WHEN ("left"(a."Org", 8) = '21602000'::text) THEN 'OAQ DETENTN CONTRACTS DETROIT'::text
+              WHEN ("left"(a."Org", 8) = '70070000'::text) THEN 'ASST DIR JOINT TASK FORCE INV'::text
+              WHEN ("left"(a."Org", 8) = '23040000'::text) THEN 'CISO & INFOR ASSURANCE DIV'::text
+              WHEN ("left"(a."Org", 8) = '21800000'::text) THEN 'OAQ ACQUISITION SYSTEMS BRANCH'::text
+              WHEN ("left"(a."Org", 8) = '21320000'::text) THEN 'OAQ MISSION SUPPORT DALLAS'::text
+              ELSE NULL::text
+          END AS cxo_org_text,
+          CASE
+              WHEN (a."Pos Off Ttl" = 'DEP DIR ICE'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'CHIEF OF STAFF'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'MGMT & PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEP CH OF STAFF'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SPECIAL ADVISOR (PROTOCOL & SPEC EVTS)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'PROG MGR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'MSN SUPT SPECL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ASSISTANT EXEC SEC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'WRI EDIT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ASST DIR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'CONGRSNL LIASN SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY CONGRSNL LIASN OFCR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SPEC ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PUBLIC AFF SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PUBLIC AFF SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'MISSION SUPPORT SPECIALIST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY MGMT & PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'VIS INF SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'AUDIO VIS PRODN SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY AUDIO VIS PRODN SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ASST DIR DIVERSITY & CIVIL RIGHTS'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'EQ EMPLMT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'CLK'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'EQ EMPLMT MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY POLICY ADVISOR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PLCY ADVSR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY EQ EMPLMT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY EQ OPP SPEC'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'POLICY ADVSR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY CRIM INVSTGR'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'CRIM INVSTGR'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'EQUIP SPECLST ORDNC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPP TECHNCN OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY GEN ENGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ENGRG TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'LAW ENFORCEMENT PROG. MGR.'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEPRTN OFFCR (COURSE DEVLP/INSTR)'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'TRAINING SPEC (FIREARMS)'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'FIREARMS PGRM SPCLST'::text) THEN 'LEOTHR'::text
+              WHEN (a."Pos Off Ttl" = 'TRNG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'CRIMINAL INVESTIGATOR (INSTRUCTOR)'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'DETNTN & DEPORTATN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY DETNTN & DEPORTATN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'FACIL OPERS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY COMMUNITY RELATIONS OFFCR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'COMMUNITY RELATIONS OFFCR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SENIOR ADVSR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEP CHIEF OF STAFF'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'STAFF ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'BUDG ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'REGULATORY AND POLICY ANALYST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ECONMST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PLCY ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY REGULATORY ANALYST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PLCY ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ECONOMIST (CHIEF)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'CH OF STAFF'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY MSN SUPT SPECL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'INSTRUCTNL SYS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INSTRUCTNL SYS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PROG MGR (LRNG MGMT)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'TRNG INSTRU'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INSTRUCTIONAL SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'MISSION SUPRT ASST OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY TRNG INSTRU'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEPUTY CHIEF HUMAN CAPITAL OFFICER'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'CHIEF HUMAN CAPITAL OFFICER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'HUMAN RESOURCES SPECLST (COMPEN)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SENIOR HUMAN RESOURCES ADVISOR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY STRATEGIC ADVSR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HUMAN RESOURCES SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'HUMAN RESOURCES SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'HUMAN RESOURCES ASST OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HUMAN RESOURCES SPECLST (EMPL BE'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'HUMAN RESOURCES SPECLST (RECRUIT&PLAC)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HUMAN RESOURCES SPECLST (RECRUIT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HUMAN RESOURCES SPECLST (CLASSIF'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'HUMAN RESOURCES SPECLST (CLASSIFN)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PRE-EMPLOYMENT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PRE EMPLOYMENT ASST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'STUD TR (HUMAN RESOURCES)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HR SPECLST (EMPL & LABOR REL)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'HUMAN RESOURCES SPECLST (LABOR REL)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HUMAN RESOURCES SPECLST (LABOR R'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD HUMAN RESOURCES SPECLST (EMPL REL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HUMAN RESOURCES SPECLST (EMPL RE'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'HR SPECLST (CLASSIFN RECRUIT & PLAC)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PHYSICIAN'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'PHYSICIAN'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'OCCUPTL HLTH NURSE'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'DRUG PROG COORD'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'HUMAN RESOURCES SPECLST (EMPL BENES)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'BEHAVIORAL HLTH SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'EMP ASSTNC PROG MGR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PSYCH'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'CHAPLAIN DIR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PERS RES PSYCH'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PERS RESEARCH PSYCH'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'MGMT INF ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HUMAN RESOURCES SPECLST (INFO SY'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ADMV OFFCR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ADMV OFFCR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'CIVILIAN PAY TECHNCN OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HUMAN RESOURCES SPECLST (COMPEN)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ASST DIR INF GOVERNANCE'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'RECS AND INFO MGMT SPEC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'OPER RES ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PRIVACY OFFICER'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'MGMT & PRO ANAL (PRIVACY COMPLIANCE)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SR INFO GOV ANALYST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'GOVNMNT INFO SPEC (PRIVACY COMPLIANCE)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'MGMT & PROG ANAL (BUDG & COR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY RECORDS & INFORMATION MGMT SPECI'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PARALEGAL SPECLST (FOIA/PA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'PARALEGAL SPECLST'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'FOIA/PA ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PARALEGAL SPECLST'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PARALEGAL SPECLST (FOIA/PA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'PARALEGAL SPECLST (FOIA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'FREEDOM OF INFORMATION ACT DIRECTOR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEPUTY DIRECTOR FOIA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'GEN ENGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ITSPEC (INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'OPERATIONS RESEARCH ANALYST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEP PRINC LEG ADVSR'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'DEP PRIN LEGAL ADVSR MANAGEMENT'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'PRINCIPAL LEGAL ADVISOR FOR ICE'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY GEN ATTY'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'GEN ATTY'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'ATTY ADVSR'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'ASSOC DEP PRINC LEG ADVSR'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'PARALEGAL SPECIALIST (OPLA)'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEP PRINC LEGAL ADVSR HEADQUARTES'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'HISTRN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'LIBRN LAW'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'LEG ASST OA'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY GEN ATTY (ETHICS)'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'GEN ATTY (ETHCIS)'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'MAIL & FILE CLK OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD LEG ASST'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'CHIEF COUNSEL'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'LAW CLK'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY LEG ASST OA'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'TRIAL ATTY'::text) THEN 'ATTY'::text
+              WHEN (a."Pos Off Ttl" = 'STUD TR (LEG ASST) OA'::text) THEN 'LGLSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ENFORCEMENT PROGRAMS MGR'::text) THEN 'LEOTHR'::text
+              WHEN (a."Pos Off Ttl" = 'ASST DIR ENFCMNT & REMOVAL OPS'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'DEP ASST DIR FLD OPERS'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'INTEL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'EMERGENCY MANAGEMENT SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY EMERGENCY MANAGEMENT SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'STATCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEPUTY ASSISTANT DIRECTOR ERO'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'MGMT & PROG ANAL (DET SVCS MGR)'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEPRTN OFFCR (COMP STDS OFFCR)'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'ASST DIR SECURE COMMUNITIES'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'CRIM TARGETING SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY CRIM TARGETING SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEPRTN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'LAW ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY LAW ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ASST DIR ICE SRVCS HLTH CORPS'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'HEALTH SYSTEMS SPECIALIST'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PHYSCN (PSYCHTRC)'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'PHYSICIAN (CLINICAL DIRECTOR)'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'PHYSICIAN (PSYCHIATRY)'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'MEDCL OFFCR'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'PHYSCN (GEN PRACTICE)'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'PHYSICIAN (REG CLINICAL DIR)'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'PHYSICIAN (CONSULTANT)'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'PHYSICIAN (DAD/MED DIRECTOR)'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'CLNCL NURSE'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY HEALTH SYSTEM SPECIALIST'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'PRACTICAL NURSE'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'NURSE PRACTITIONER'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'MEDCL REC TECHNCN'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'DNTL HYGIENIST'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY WRI EDIT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SECY OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ADV PRAC NURSE (NURSE PRACTITIONER)'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'DIAGNSTC RADIOLOGIC TECHNCN'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'DNTL ASST'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'PHYSCN ASST'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'CLNCL PSYCH'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'SOC WRKR'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'ADVANCE NURSE PRAC'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'MATHCL STATCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ENFORCEMENT & REMOVAL ASSISTANT OA'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ENFCMNT & RMVL ASST OA'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'STUD TR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'TRAFF MGMT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'TRNG TECHNCN OA'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPP TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPP TECHNCN (INVENT)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'BOND CNTL SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY BOND SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'LAW ENFCMNT TECHNCN'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ADMV ASST OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'RECR SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'MGMT ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'IMMGRTN ENF AGT'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'FOOD SRVS SPEC'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'AUTMTV MECH'::text) THEN 'WGSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'LAW ENFCMNT COMMUN ASST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY MSN SUPT SPECL (COTR)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'MTRLS HNDLR'::text) THEN 'WGSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'OFF AUTOMATION ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'INVENT MGMT SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ELCTRON TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'OFF AUTOMATION CLK'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'MGMT PROG TECHNCN OA'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ASST DIR OFF OF ACQ'::text) THEN 'CONT'::text
+              WHEN (a."Pos Off Ttl" = 'PROCUR ANAL'::text) THEN 'CONT'::text
+              WHEN (a."Pos Off Ttl" = 'DEBARMENT ANAL (SENIOR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEBARMENT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'CONTR SPECLST'::text) THEN 'CONT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY CONTR SPECLST'::text) THEN 'CONT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY DEBARMENT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'EXEC ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'PROCUR & BUS RESOURCES MGMT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PROCUR & BUS RESOURCES MGT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SR PROCUR & BUS RESOURCES MGMT ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'BUS OPERS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEP ASSOC DIRECTOR OPR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ASSOC DIR OPR'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'MGMT & PROG ANAL (SR PROG ADVSR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ASST DIR INVST OPR'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'OVERSIGHT ADM (PREA)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'INVESTIGATIVE ANALYST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'OPERTNL ANALS SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INSIDER THREAT OPERTNL ANAL'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'INTELL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'OPERATIONAL ANALYSIS SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INTEL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'TECHNCL ENFCMNT OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY TECHNCL ENFCMNT OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INTELL & INFO SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'INSIDER THREAT SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'MGMT & PROG ANALYST (PROG ADVSR)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'INVESTIGATIVE PROGRAM OFFICER'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DIV DIRINSPR & DETENTION OVERSIGHT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INSPS & COMPLNC MGR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'INSPS & COMPLNC SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INSPS & COMPLC SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY SUPV ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INSPS & COMPLNC SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY SECUR SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PERS SECUR SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PERS SECUR SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SECUR SPECLST (POLYGRAPH EXAMNR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY SECUR SPECLST (POLYGRAPH EXMNR)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PHYS SECUR SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SECUR SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SECUR INSPR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'CHIEF INFORMATION OFFICER'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'DEP CHIEF INFORMATION OFFICER'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY IT SPEC (ENTACH/INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'COMMUNICATIONS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ITSPEC (PLCYPLN)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ITSPEC (SYSANALYSIS)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'IT PROJ MGR'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'ITSPEC (SYSADMIN)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ITSPEC (INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'ITSPEC'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ITSPEC (APPSW/INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD ITSPEC (INFOSEC)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'ITSPEC (DATAMGT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'ITSPEC (SYSANALYSIS)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ITSPEC (PLCYPLN)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'ITSPEC (CUSTSPT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'ITSPEC (NETWORK)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ITSPEC (CUSTSPT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD ITSPEC (NETWORK)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD ITSPEC (CUSTSPT)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ITSPEC (NETWORK)'::text) THEN 'ITSPEC'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY BUS OPERS SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEPUTY CHIEF FINANCIAL OFFICER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'CHIEF FINANCIAL OFCR (ICE)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPV ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD MGMT & PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD FNANCL PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'FNANCL PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'FIN PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DIR BUDGET & PROGRAM PERFORMANCE'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY BUDG ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'PROGRAM MANAGEMENT SPECIALIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SAFETY & OCCUPTL HLTH SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INDL HYGIENIST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SAFETY & OCCUPTL HLTH MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'NURSE CONSULTANT'::text) THEN 'MED'::text
+              WHEN (a."Pos Off Ttl" = 'MAIL & FILE ASST (OA)'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SPACE MGMT SUPRT SPECL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ARCH'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'LEASE ADMIN PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SPACE MGMT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'PROG MGR (FACILITIES)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'BLDG MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'FACIL PROG MGR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'UTIL SYS RPRER OPERTR'::text) THEN 'WGSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DIR OF FNANCL MGMT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY FNANCL PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY SYS ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'MISSION SUPRT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SYS ACCTNT'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY FNANCL SYS MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'FINANCIAL SYSTEMS MANAGER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'FINANCIL MGMT SYSTEMS ANAL (TEAM LEAD)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY FNANCL BUS INTEG MANAGER'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ACCTG TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY MGMT INF ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY FNANCL ANAL'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD ACCTG TECHNCN'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'FNANCL MGR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'ACCNT (TAX)'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEPUTY DIRECTOR INVESTIGATIONS'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'ASST DIR OFFICE OF INVESTIGATIONS'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'AUDR'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'DEP ASST DIR INVEST'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'INTELL OPERS SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'CRIM RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'PAROLE PROG SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ASSET FORFEIT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY SOC SCI PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'SOC SCI PROG SPECLST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'INTELL OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INTELL OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY FORENSIC DOCMT EXAMN'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'FORENSIC DOCMT EXAMNR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'FNGRPRNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'PHOTOGR (FORENSIC)'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SR. DIG MULTIMEDIA FORENSIC ANALYST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SEIZED PROPERTY SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY FNGRPRNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY FORENSIC DOCMT EXAMNR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'PHYS SCNTST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'EMER PREPAREDNESS SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SEVP APPEALS ADJUDR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'COUNTERTERRORISM INTELL SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SEVP FLD REPR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY SEVP FLD REPR'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SEVP ADJUDR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY SEVP ADJUDR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'EXECUTIVE DIRECTOR LEIS'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'CYBER OPERS OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'COMPR FORENSIC ANAL'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'CRIM INVSTGR (NATL PROG MGR)'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'TACTICAL COMMUN OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."Pos Off Ttl" = 'TELECOMMUN SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SOC SCI PROG SPEC (VICTIM WIT ASST)'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'INVESTIGATIVE ASST OA'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SPEC AGT IN CHG'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INTELL RES SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'SEIZED PROP SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'INVESTIGATIVE CLK OA'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'FILE ASST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'TECHNCL OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'PROG ASST'::text) THEN 'OTHRSPT'::text
+              WHEN (a."Pos Off Ttl" = 'INTELL ASST'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'ICE TACTICAL OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY ICE TACTICAL OFFCR'::text) THEN 'LEOTHR'::text
+              WHEN (a."Pos Off Ttl" = 'PROG SUPRT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'INF RECPTNST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'ENFCMNT OPERS SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SECTOR ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'LEAD SECTOR ENFCMNT SPECLST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'TECHNICAL EQUIPMENT SPECIALIST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY TACTICAL COMMUN OFFCR'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DIR FEDL EXPORT ENFCMNT COORDNTN CENTR'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PROG SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY PROG ANAL'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INVESTIGATIVE ANALYST'::text) THEN 'LESUPT'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY FOIA/PRIVACY ACT SPECLST'::text) THEN 'MSNSUPT'::text
+              WHEN (a."Pos Off Ttl" = 'DIR INTELL'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'DEP ASST DIR INTEL'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY INTELL OPERS SPECLST'::text) THEN 'IRS'::text
+              WHEN (a."Pos Off Ttl" = 'DEP DIR, INTERNATIONAL AFFAIRS'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'DIR INTERPOL WASH'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'SUPVY CRIM INVSTGR (OPERS CH)'::text) THEN 'CI'::text
+              WHEN (a."Pos Off Ttl" = 'DEPRTN LIASN OFFCR'::text) THEN 'DO'::text
+              WHEN (a."Pos Off Ttl" = 'IMMIGRATN OFFCR'::text) THEN 'LEOTHR'::text
+              ELSE a."Pos Off Ttl"
+          END AS "tableau_TG",
+          CASE
+              WHEN ("left"(a."Org", 8) = '70040002'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '70040003'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '70080001'::text) THEN 'INTEL RES SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '18620500'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '70050002'::text) THEN 'INTELL RES SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '18610200'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '23030000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '70010003'::text) THEN 'SUPVY VICTIM ASST PROG SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '07100700'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '18630200'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '07100050'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '07102400'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '70030002'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '18630400'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '18630500'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '24403001'::text) THEN 'FNANCL PROG SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '70040004'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '18630700'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '22120013'::text) THEN 'SECUR SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '18620200'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '18630100'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '05010000'::text) THEN 'MISSION SUPPORT SPECIALIST'::text
+              WHEN ("left"(a."Org", 8) = '18620300'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '06171000'::text) THEN 'PARALEGAL SPECLST (FOIA/PA)'::text
+              WHEN ("left"(a."Org", 8) = '24200000'::text) THEN 'BUDG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '18060400'::text) THEN 'SUPVY DETNTN & DEPORTATNOFFCR'::text
+              WHEN ("left"(a."Org", 8) = '07101400'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '18610500'::text) THEN 'SUPVY DETNTN & DEPORTATNOFFCR'::text
+              WHEN ("left"(a."Org", 8) = '07101900'::text) THEN 'LEG ASST OA'::text
+              WHEN ("left"(a."Org", 8) = '70060002'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '07100200'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '70080002'::text) THEN 'SUPVY MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '21000000'::text) THEN 'PROCUR ANAL'::text
+              WHEN ("left"(a."Org", 8) = '06098000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '18620400'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '23030600'::text) THEN 'ITSPEC (INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '18000200'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '18000300'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '24301000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '22100020'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '18620700'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '07102000'::text) THEN 'LEG ASST OA'::text
+              WHEN ("left"(a."Org", 8) = '70090001'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '70020002'::text) THEN 'SUPVY MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '18620100'::text) THEN 'ENFORCEMENT & REMOVAL ASSISTANT OA'::text
+              WHEN ("left"(a."Org", 8) = '22120012'::text) THEN 'PHYS SECUR SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '22100019'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '22110010'::text) THEN 'INSPS & COMPLNC SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '18620800'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '18060100'::text) THEN 'EMERGENCY MANAGEMENT SPECIALIST'::text
+              WHEN ("left"(a."Org", 8) = '18610100'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '18620600'::text) THEN 'DETNTN & DEPORTATN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '07102200'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '18060700'::text) THEN 'ENFORCEMENT PROGRAMS MGR'::text
+              WHEN ("left"(a."Org", 8) = '06000000'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '18630600'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '18630300'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '70060001'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '23040300'::text) THEN 'ITSPEC (INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '23020100'::text) THEN 'IT PROJ MGR'::text
+              WHEN ("left"(a."Org", 8) = '70010001'::text) THEN 'SUPVY CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '24203000'::text) THEN 'SUPVY BUDG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '18060300'::text) THEN 'SUPVY DETNTN & DEPORTATNOFFCR'::text
+              WHEN ("left"(a."Org", 8) = '18060600'::text) THEN 'CLNCL NURSE'::text
+              WHEN ("left"(a."Org", 8) = '07100060'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '70030003'::text) THEN 'BUS OPERS SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '70010002'::text) THEN 'INTELL RES SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '70020001'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '18610300'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '07100070'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '18610900'::text) THEN 'ENFORCEMENT & REMOVAL ASSISTANT OA'::text
+              WHEN ("left"(a."Org", 8) = '18610600'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '18610800'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '05030200'::text) THEN 'PUBLIC AFF SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '05030400'::text) THEN 'PUBLIC AFF SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '06090100'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '22120010'::text) THEN 'PERS SECUR SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '23020500'::text) THEN 'ITSPEC (INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '18610700'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '07102300'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '70020000'::text) THEN 'INVESTIGATIVE ANALYST'::text
+              WHEN ("left"(a."Org", 8) = '07100500'::text) THEN 'LEG ASST OA'::text
+              WHEN ("left"(a."Org", 8) = '06051000'::text) THEN 'SUPVY MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '70050000'::text) THEN 'DEPUTY DIRECTOR INVESTIGATIONS'::text
+              WHEN ("left"(a."Org", 8) = '06091000'::text) THEN 'HUMAN RESOURCES SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '18610400'::text) THEN 'DEPRTN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '07101300'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '07101000'::text) THEN 'SUPVY GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '05050300'::text) THEN 'DEPRTN OFFCR (COURSE DEVLP/INSTR)'::text
+              WHEN ("left"(a."Org", 8) = '22100021'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '18000100'::text) THEN 'DETNTN & DEPORTATN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '23030200'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '07102500'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '70080000'::text) THEN 'INTELL RES SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '23050100'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '23020400'::text) THEN 'ITSPEC (INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '23020200'::text) THEN 'IT PROJ MGR'::text
+              WHEN ("left"(a."Org", 8) = '24403000'::text) THEN 'FNANCL PROG SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '05040100'::text) THEN 'PLCY ADVSR'::text
+              WHEN ("left"(a."Org", 8) = '05060000'::text) THEN 'COMMUNITY RELATIONS OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '23030100'::text) THEN 'ITSPEC (CUSTSPT)'::text
+              WHEN ("left"(a."Org", 8) = '24302000'::text) THEN 'BLDG MGR'::text
+              WHEN ("left"(a."Org", 8) = '06052000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '05040000'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '07101800'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '07100800'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '06050000'::text) THEN 'CHIEF OF STAFF'::text
+              WHEN ("left"(a."Org", 8) = '06020000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '07100600'::text) THEN 'SUPVY GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '18500300'::text) THEN 'DEPRTN OFFCR (COURSE DEVLP/INSTR)'::text
+              WHEN ("left"(a."Org", 8) = '21400000'::text) THEN 'CONTR SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '22120000'::text) THEN 'SUPVY CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '07100001'::text) THEN 'SUPVY GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '18060200'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '07102600'::text) THEN 'STUD TR (LEG ASST) OA'::text
+              WHEN ("left"(a."Org", 8) = '07100100'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '07102100'::text) THEN 'MAIL & FILE CLK OA'::text
+              WHEN ("left"(a."Org", 8) = '21500000'::text) THEN 'SUPVY CONTR SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '07101700'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '23040100'::text) THEN 'ITSPEC (INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '23020600'::text) THEN 'SUPVY ITSPEC (SYSANALYSIS)'::text
+              WHEN ("left"(a."Org", 8) = '07100900'::text) THEN 'MAIL & FILE CLK OA'::text
+              WHEN ("left"(a."Org", 8) = '23010000'::text) THEN 'SUPVY ITSPEC (APPSW/INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '23020300'::text) THEN 'SUPVY ITSPEC (APPSW/INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '70000000'::text) THEN 'SUPVY CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '70030001'::text) THEN 'SUPVY CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '21600000'::text) THEN 'PROCUR ANAL'::text
+              WHEN ("left"(a."Org", 8) = '70010000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '22100022'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '24300000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '05020000'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '70040001'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '70070001'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '06090000'::text) THEN 'CHIEF OF STAFF'::text
+              WHEN ("left"(a."Org", 8) = '07101600'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '22140010'::text) THEN 'SUPVY CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '05050200'::text) THEN 'SUPVY CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '18060800'::text) THEN 'DETNTN & DEPORTATN OFFCR'::text
+              WHEN ("left"(a."Org", 8) = '22110011'::text) THEN 'SUPVY INSPS & COMPLNC MGR'::text
+              WHEN ("left"(a."Org", 8) = '07100300'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '06098100'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '07100400'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '07101200'::text) THEN 'SUPVY GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '24402000'::text) THEN 'SYS ACCTNT'::text
+              WHEN ("left"(a."Org", 8) = '18060000'::text) THEN 'ASST DIR ENFCMNT & REMOVAL OPS'::text
+              WHEN ("left"(a."Org", 8) = '18000000'::text) THEN 'SUPVY DETNTN & DEPORTATNOFFCR'::text
+              WHEN ("left"(a."Org", 8) = '06030000'::text) THEN 'REGULATORY AND POLICY ANALYST'::text
+              WHEN ("left"(a."Org", 8) = '24100000'::text) THEN 'SUPVY ACCTNT'::text
+              WHEN ("left"(a."Org", 8) = '24000000'::text) THEN 'CHIEF OF STAFF'::text
+              WHEN ("left"(a."Org", 8) = '06170000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '06098200'::text) THEN 'HUMAN RESOURCES SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '70050001'::text) THEN 'MISSION SUPRT ASST OA'::text
+              WHEN ("left"(a."Org", 8) = '24400000'::text) THEN 'ACCTNT'::text
+              WHEN ("left"(a."Org", 8) = '23050300'::text) THEN 'BUS OPERS SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '23050200'::text) THEN 'ITSPEC'::text
+              WHEN ("left"(a."Org", 8) = '21900000'::text) THEN 'BUS OPERS SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '07101100'::text) THEN 'GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '24401000'::text) THEN 'FNANCL PROG SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '21501000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '21200000'::text) THEN 'SUPVY CONTR SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '07100040'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '22100017'::text) THEN 'INTELL RES SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '06093000'::text) THEN 'OCCUPTL HLTH NURSE'::text
+              WHEN ("left"(a."Org", 8) = '24201000'::text) THEN 'BUDG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '23030300'::text) THEN 'LEAD ITSPEC (CUSTSPT)'::text
+              WHEN ("left"(a."Org", 8) = '05050000'::text) THEN 'SUPVY MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '05030000'::text) THEN 'SUPVY PUBLIC AFF SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '06095000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '23030500'::text) THEN 'ITSPEC (INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '06096000'::text) THEN 'PERS RES PSYCH'::text
+              WHEN ("left"(a."Org", 8) = '22110013'::text) THEN 'SUPVY INSP AND COMPLNC SPEC'::text
+              WHEN ("left"(a."Org", 8) = '06097000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '06220000'::text) THEN 'SYS ENGR'::text
+              WHEN ("left"(a."Org", 8) = '22100016'::text) THEN 'OPERTNL ANALS SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '23020000'::text) THEN 'SUPVY ITSPEC (INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '23050000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '23030400'::text) THEN 'ITSPEC'::text
+              WHEN ("left"(a."Org", 8) = '23000000'::text) THEN 'SUPVY IT SPEC (ENTACH/INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '05050100'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '21310000'::text) THEN 'PROCUR & BUS RESOURCES MGMT ANAL'::text
+              WHEN ("left"(a."Org", 8) = '23020700'::text) THEN 'IT PROJ MGR'::text
+              WHEN ("left"(a."Org", 8) = '70090000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '22000000'::text) THEN 'SUPVY CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '70060000'::text) THEN 'ASST DIR OFFICE OF INVESTIGATIONS'::text
+              WHEN ("left"(a."Org", 8) = '06098300'::text) THEN 'CIVILIAN PAY TECHNCN OA'::text
+              WHEN ("left"(a."Org", 8) = '06094000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '06050100'::text) THEN 'MSN SUPT SPECL'::text
+              WHEN ("left"(a."Org", 8) = '22100015'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '05080000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '05030300'::text) THEN 'COMPR FORENSIC ANAL'::text
+              WHEN ("left"(a."Org", 8) = '05030100'::text) THEN 'MISSION SUPPORT SPECIALIST'::text
+              WHEN ("left"(a."Org", 8) = '23040200'::text) THEN 'SUPVY ITSPEC (INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '22100000'::text) THEN 'ASST DIR INVST OPR'::text
+              WHEN ("left"(a."Org", 8) = '05000000'::text) THEN 'SUPVY GEN ATTY'::text
+              WHEN ("left"(a."Org", 8) = '70030000'::text) THEN 'SPEC ASST'::text
+              WHEN ("left"(a."Org", 8) = '06092000'::text) THEN 'HUMAN RESOURCES SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '05040200'::text) THEN 'EQ EMPLMT SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '22110012'::text) THEN 'INSPS & COMPLNC SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '21601000'::text) THEN 'SUPVY CONTR SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '24202000'::text) THEN 'BUDG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '70040000'::text) THEN 'CRIM INVSTGR'::text
+              WHEN ("left"(a."Org", 8) = '24205000'::text) THEN 'BUDG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '24204000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '22110000'::text) THEN 'MGMT & PROG ANAL'::text
+              WHEN ("left"(a."Org", 8) = '21100000'::text) THEN 'CONTR SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '21602000'::text) THEN 'CONTR SPECLST'::text
+              WHEN ("left"(a."Org", 8) = '70070000'::text) THEN 'DEP ASST DIR INVEST'::text
+              WHEN ("left"(a."Org", 8) = '23040000'::text) THEN 'SUPVY ITSPEC (INFOSEC)'::text
+              WHEN ("left"(a."Org", 8) = '21800000'::text) THEN 'MGMT INF ANAL'::text
+              WHEN ("left"(a."Org", 8) = '21320000'::text) THEN 'CONTR SPECLST'::text
+              ELSE NULL::text
+          END AS cxo_title
+     FROM public.cxo_noa_archive_v2 a;
 ;
 
 CREATE VIEW "public"."vcxo_staffing" AS
