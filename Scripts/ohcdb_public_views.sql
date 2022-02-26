@@ -140,7 +140,7 @@ CREATE VIEW "public"."cxo_eoy_604" AS
       a."DUTY CITY",
       a."DUTY STATE",
       a.nfc_stored_acct,
-      a."tops_payroll_acct ",
+      a."tops_payroll_acct",
       a.tops_ipaguse,
       a.create_id,
       a.create_dt,
