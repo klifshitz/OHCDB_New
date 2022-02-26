@@ -1,6 +1,6 @@
 ﻿/*
 Created: 2/11/2022
-Modified: 2/24/2022
+Modified: 2/26/2022
 Project: OHCDB
 Model: OHCDB_RE
 Company: Steampunk
@@ -110,7 +110,7 @@ CREATE VIEW "public"."cxo_eoy_604" AS
       a.prog,
       a.prge,
       a.proj,
-      a."fund prog ",
+      a."fund prog",
       a."cat cd",
       a.ftep,
       a.pp,

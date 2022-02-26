@@ -1,6 +1,6 @@
 ﻿/*
 Created: 2/11/2022
-Modified: 2/24/2022
+Modified: 2/26/2022
 Project: OHCDB
 Model: OHCDB_RE
 Company: Steampunk
@@ -785,7 +785,7 @@ CREATE TABLE "public"."cxo_pml_archive"
   "ingested_at" Timestamp with time zone,
   "previous_previous_fy_total_authorized" Double precision,
   "previous_previous_fy_enhancement_positions_onboard" Double precision,
-  "previous_previous_fy_enhancement_positions_onboard" Double precision
+  "previous_previous_fy_enhancement_positions_vacant" Double precision
 )
 WITH (
   autovacuum_enabled=true)
