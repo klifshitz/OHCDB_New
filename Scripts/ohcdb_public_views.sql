@@ -1,6 +1,6 @@
 ﻿/*
 Created: 2/11/2022
-Modified: 2/26/2022
+Modified: 3/7/2022
 Project: OHCDB
 Model: OHCDB_RE
 Company: Steampunk
@@ -4837,46 +4837,74 @@ CREATE VIEW "public"."vcxo_esp_awards" AS
 ;
 
 CREATE VIEW "public"."vcxo_esp" AS
-   SELECT cxo_esp_actions_archive."DIR",
-      cxo_esp_actions_archive."PROGRAM_OFFICE",
-      cxo_esp_actions_archive."BUD_LOC",
-      cxo_esp_actions_archive."IPN",
-      cxo_esp_actions_archive."ENHANCEMENT",
-      cxo_esp_actions_archive."PRIORITY",
-      cxo_esp_actions_archive."PROJECT_CODE",
-      cxo_esp_actions_archive."FIRST_NAME",
-      cxo_esp_actions_archive."LAST_NAME",
-      cxo_esp_actions_archive."MRN",
-      cxo_esp_actions_archive."TITLE",
-      cxo_esp_actions_archive."GRADE",
-      cxo_esp_actions_archive."SERIES",
-      cxo_esp_actions_archive."REQUEST_NUMBER",
-      cxo_esp_actions_archive."REQUEST_CODE",
-      cxo_esp_actions_archive."DESCRIPTION",
-      cxo_esp_actions_archive."GRP_NAME",
-      cxo_esp_actions_archive."GROUP_TYPE",
-      cxo_esp_actions_archive."ORG_CODE",
-      cxo_esp_actions_archive."LINE1",
-      cxo_esp_actions_archive."LINE2",
-      cxo_esp_actions_archive."LINE3",
-      cxo_esp_actions_archive."LINE4",
-      cxo_esp_actions_archive."LINE5",
-      cxo_esp_actions_archive."LINE6",
-      cxo_esp_actions_archive."BOX_TYPE",
-      cxo_esp_actions_archive."EFFECTIVE_DATE",
-      cxo_esp_actions_archive."INTERNAL_SELECTION",
-      cxo_esp_actions_archive."POI",
-      cxo_esp_actions_archive."DATE_CREATED",
-      cxo_esp_actions_archive."LAST_ACTIVITY",
-      cxo_esp_actions_archive."ANNOUNCEMENT_CODE",
-      cxo_esp_actions_archive."CERTIFICATE_NAME",
-      cxo_esp_actions_archive."ANNOUNCEMENT_OWNER",
-      cxo_esp_actions_archive."CATEGORY_CODE",
-      cxo_esp_actions_archive.filename,
-      cxo_esp_actions_archive.cxo_pp1,
-      cxo_esp_actions_archive.fy,
-      cxo_esp_actions_archive.ingested_at
-     FROM public.cxo_esp_actions_archive;
+   SELECT a.request_number,
+    a."DIRECTORATE_CODE1",
+    a.office_code,
+    a.bud_loc_code,
+    a."DUTY_LOC_CODE",
+    a.duty_city,
+    a.duty_county,
+    a.duty_state,
+    a.ppa,
+    a.location,
+    a.phase,
+    a.stage,
+    a.staffing_type,
+    a.int_ext,
+    a.first_name,
+    a.last_name,
+    a.master,
+    a.group_name,
+    a.create_date,
+    a.title,
+    a.grade,
+    a.series,
+    a.request_code,
+    a.request_code_description,
+    a.process,
+    a.org_code,
+    a.line1,
+    a.line2,
+    a.line3,
+    a.line4,
+    a.line5,
+    a.line6,
+    a.line7,
+    a.line8,
+    a."HQ",
+    a.ip_no,
+    a.enhancement,
+    a.priority,
+    a.project_code,
+    a.announcement_code,
+    a.certificate_name,
+    a.announcement_owner,
+    a.box_type,
+    a.eff_date,
+    a."FY",
+    a."PP",
+    a.use,
+    a.eff_date_2,
+    a.proposed_effective_date,
+    a.gid,
+    a.unique_id,
+    a.internal_selection,
+    a.leo_code,
+    a.title_group_code,
+    a.cxo_pp1,
+    a.cxo_fy,
+    a.filename,
+    a.ingested_at,
+    a.pp_end,
+    a.cxo_pp2,
+    a.cxo_fy2,
+        CASE
+            WHEN (a.location = 'at HROC'::text) THEN 'HROC'::text
+            WHEN (a.location = 'Not at HROC'::text) THEN 'Program'::text
+            ELSE a.location
+        END AS cxo_location
+   FROM public.cxo_esp_archive_v2 a
+  ORDER BY a.cxo_pp1;
 ;
 
 CREATE VIEW "public"."vcxo_map2" AS
